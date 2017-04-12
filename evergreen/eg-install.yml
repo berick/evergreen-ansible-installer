@@ -1,0 +1,46 @@
+- name: Install Evergreen
+  become: true
+  environment:
+    PATH: "{{ansible_env.PATH}}:{{eg_install_path}}/bin"
+  shell: >
+    cd {{repo_base}}/Evergreen 
+    && make STAFF_CLIENT_STAMP_ID={{eg_stamp_id}} install
+- name: Create XUL Current Symlink
+  file:
+    state: link
+    src: /openils/var/web/xul/{{eg_stamp_id}}
+    dest: /openils/var/web/xul/current
+- name: Create XUL Server Symlink
+  file:
+    state: link
+    src: /openils/var/web/xul/current/server
+    dest: /openils/var/web/xul/server
+- copy:
+    src: /openils/conf/opensrf.xml.example 
+    dest: /openils/conf/opensrf.xml
+    force: no
+- copy:
+    src: /openils/conf/opensrf_core.xml.example
+    dest: /openils/conf/opensrf_core.xml
+    force: no
+- get_url: url={{dojo_url}} dest=/tmp/dojo-release-{{dojo_version}}.tar.gz
+- unarchive:
+    src: /tmp/dojo-release-{{dojo_version}}.tar.gz
+    dest: /tmp/
+- copy: src=/tmp/dojo-release-{{dojo_version}}/ dest=/openils/var/web/js/dojo/
+- file: dest="{{eg_install_path}}" owner=opensrf group=opensrf recurse=yes
+- copy: src=/openils/conf/srfsh.xml.example dest=/home/opensrf/.srfsh.xml force=no
+- file: dest=/home/opensrf/.srfsh.xml owner=opensrf group=opensrf
+- name: Copy ldconfig
+  copy:
+    src: "{{playbook_dir}}/evergreen/evergreen.ld.conf"
+    dest: /etc/ld.so.conf.d/evergreen.ld.conf
+- shell: ldconfig
+- name: Configure Rsyslog
+  when: use_rsyslog
+  copy:
+    src: "{{repo_base}}/Evergreen/Open-ILS/examples/evergreen-rsyslog.conf"
+    dest: /etc/rsyslog.d/evergreen.conf
+- name: Restart Rsyslog
+  when: use_rsyslog
+  service: name=rsyslog state=restarted

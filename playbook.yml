@@ -1,0 +1,14 @@
+## 
+
+- hosts: '{{hosts}}'
+  connection: local
+  # Every command not explicitly run by opensrf/postgres requires root.  
+  remote_user: root
+  become_method: sudo
+  vars_files:
+    - settings.yml
+  tasks:
+  - name: Process OpenSRF Tasks
+    include: opensrf/main.yml
+  - name: Process Evergreen Tasks
+    include: evergreen/main.yml

@@ -1,0 +1,25 @@
+- name: Checkout Websockets Repository
+  git:
+    repo: "{{websockets_repository}}"
+    dest: "{{repo_base}}/apache-websocket"
+- name: Install Websockets
+  shell: cd {{repo_base}}/apache-websocket && apxs2 -i -a -c mod_websocket.c 
+- stat: path=/etc/apache2-websockets
+  register: websocketsconf
+- block:
+  - name: Create Websockets Instance
+    shell: >
+      sh /usr/share/doc/apache2/examples/setup-instance websockets 
+      && a2dismod websocket
+  - lineinfile: 
+      state: present 
+      dest: /etc/apache2-websockets/envvars 
+      regexp: 'APACHE_RUN_USER' 
+      line: 'export APACHE_RUN_USER=opensrf'
+  - name: Copy Example Websockets apache2.conf
+    copy:
+      src: "{{repo_base}}/OpenSRF/examples/apache_24/websockets/apache2.conf"
+      dest: /etc/apache2-websockets/apache2.conf
+  when: websocketsconf.stat.isdir is not defined
+# NOTE: restarting websockets here fails because the SSL  cert is not yet in place
+

@@ -1,0 +1,39 @@
+- name: Install Postgres Prereqs
+  apt: name={{item}} state=present
+  with_items:
+    - python-psycopg2 # required by postgresql_user
+    - pgtap
+- name: Install Postgres Dependencies
+  shell: >
+    cd {{repo_base}}/Evergreen 
+    && PERL_MM_USE_DEFAULT=1 make -f 
+    Open-ILS/src/extras/Makefile.install postgres-server-{{os_build_target}}
+- name: Start Postgres
+  service: name=postgresql state=started
+- name: Create DB User
+  become: true
+  become_user: postgres
+  postgresql_user: 
+    name: "{{database_user}}" 
+    password: "{{database_password}}" 
+    role_attr_flags: SUPERUSER
+- name: Apply EG DB Schema
+  shell: >
+    perl {{repo_base}}/Evergreen/Open-ILS/src/support-scripts/eg_db_config 
+    {{load_sample_data}} 
+    --create-database 
+    --create-schema 
+    --create-offline 
+    --update-config 
+    --service all 
+    --user {{database_user}} 
+    --password {{database_password}} 
+    --hostname {{database_host}} 
+    --database {{database_database}} 
+    --admin-user {{eg_admin_user}} 
+    --admin-pass {{eg_admin_pass}}
+- name: Create PGTAP Extension
+  become: true
+  become_user: postgres
+  postgresql_ext: name=pgtap db={{database_database}}
+

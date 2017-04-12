@@ -1,0 +1,16 @@
+- name: Copying Ejabberd Config
+  copy:
+    src: "{{playbook_dir}}/opensrf/ejabberd-config.yml"
+    dest: /etc/ejabberd/ejabberd.yml
+    mode: 0600
+- name: Restarting Ejabberd
+  service: name=ejabberd state=restarted
+- pause: seconds=5
+- shell: ejabberdctl unregister router private.localhost
+- shell: ejabberdctl unregister opensrf private.localhost
+- shell: ejabberdctl unregister router public.localhost
+- shell: ejabberdctl unregister opensrf public.localhost
+- shell: ejabberdctl register router private.localhost {{ejabberd_password}}
+- shell: ejabberdctl register opensrf private.localhost {{ejabberd_password}}
+- shell: ejabberdctl register router public.localhost {{ejabberd_password}}
+- shell: ejabberdctl register opensrf public.localhost {{ejabberd_password}}

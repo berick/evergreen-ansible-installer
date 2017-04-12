@@ -1,0 +1,15 @@
+- name: Build Evergreen
+  include: eg-build.yml
+- name: Build Evergreen Web
+  include: eg-web.yml
+- name: Install Evergreen
+  include: eg-install.yml
+- name: Setup Apache
+  include: apache.yml
+- name: Install Nginx
+  include: nginx.yml
+  when: use_nginx
+- name: Install Database
+  include: database.yml
+  when: install_database
+

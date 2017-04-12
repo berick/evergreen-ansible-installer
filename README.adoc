@@ -1,0 +1,14 @@
+= Evergreen / OpenSRF Ansible Installer
+
+== settings.yml
+
+Review the values contained in setting.yml and modify as needed.
+
+== Running
+
+[source,sh]
+---------------------------------------------------------------------------
+sudo ansible-playbook playbook.yml -e "hosts=127.0.0.1"
+---------------------------------------------------------------------------
+
+

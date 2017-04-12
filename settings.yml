@@ -1,0 +1,30 @@
+---
+repo_base: /home/opensrf
+os_build_target: ubuntu-xenial 
+osrf_git_repository: git://git.evergreen-ils.org/OpenSRF.git
+eg_git_repository: git://git.evergreen-ils.org/Evergreen.git
+websockets_repository: https://github.com/disconnect/apache-websocket
+osrf_git_branch: master
+eg_git_branch: master
+# Clone depth zero means no clone depth limit.
+osrf_clone_depth: 0
+eg_clone_depth: 0
+eg_install_path: /openils
+eg_stamp_id: master
+eg_admin_user: admin
+eg_admin_pass: demo123
+ejabberd_password: password
+domain_name: localhost
+install_database: true
+database_host: 127.0.0.1
+database_port: 5432
+database_user: evergreen
+database_password: evergreen
+database_database: evergreen
+# set to empty value to avoid loading sample data
+load_sample_data: --load-all-sample
+opensrf_memcached_server: ["127.0.0.1:11211"]
+dojo_version: 1.3.3
+dojo_url: http://download.dojotoolkit.org/release-{{dojo_version}}/dojo-release-{{dojo_version}}.tar.gz
+use_rsyslog: true
+use_nginx: true
