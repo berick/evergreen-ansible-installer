@@ -7,14 +7,20 @@
   user:
     name: opensrf
     shell: /bin/bash
+# Environment changes added to ~/.bash_profile to ensure they are 
+# loaded regardless of whether opensrf is used interactively.
 - lineinfile: 
-    dest: /home/opensrf/.bashrc 
+    dest: /home/opensrf/.bash_profile
+    create: yes
+    owner: opensrf
+    group: opensrf
+    mode: 0644
     regexp: '^export PATH=' 
-    line: 'export PATH={{eg_install_path}}/bin:$PATH'
+    line: 'export PATH="{{eg_install_path}}/bin:$PATH"'
 - lineinfile: 
-    dest: /home/opensrf/.bashrc 
+    dest: /home/opensrf/.bash_profile
     regexp: '^export LD_LIBRARY_PATH=' 
-    line: 'export LD_LIBRARY_PATH={{eg_install_path}}/lib:/usr/local/lib:/usr/local/lib/dbd:$LD_LIBRARY_PATH'
+    line: 'export LD_LIBRARY_PATH="{{eg_install_path}}/lib:/usr/local/lib:/usr/local/lib/dbd:$LD_LIBRARY_PATH"'
 - lineinfile: 
     dest: /etc/hosts
     regexp: '^127.0.1.2'
