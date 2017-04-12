@@ -35,4 +35,16 @@
     dest: /etc/nginx/sites-available/default
 - name: Restart NGINX With New Config
   service: name=nginx state=restarted
+- name: Update OpenSRF WS JS Port
+  lineinfile: 
+    dest: /openils/lib/javascript/opensrf_ws.js
+    regexp: '^var WEBSOCKET_PORT_SSL = 7682;'
+    line: 'var WEBSOCKET_PORT_SSL = 443;'
+- name: Update OpenSRF WS JS Port (Shared)
+  # This file is not currently used, but may be later.
+  lineinfile: 
+    dest: /openils/lib/javascript/opensrf_ws_shared.js
+    regexp: '^var WEBSOCKET_PORT_SSL = 7682;'
+    line: 'var WEBSOCKET_PORT_SSL = 443;'
+
 
