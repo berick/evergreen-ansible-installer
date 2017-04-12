@@ -1,0 +1,21 @@
+- name: Configure Rsyslog
+  when: use_rsyslog
+  copy:
+    src: "{{repo_base}}/Evergreen/Open-ILS/examples/evergreen-rsyslog.conf"
+    dest: /etc/rsyslog.d/evergreen.conf
+- name: Restart Rsyslog
+  when: use_rsyslog
+  service: name=rsyslog state=restarted
+- name: Update opensrf_core.xml for rsyslog
+  replace:
+    dest: "{{eg_install_path}}/conf/opensrf_core.xml"
+    regexp: '<logfile>\/(.*)\n.*<!--'
+    replace: '<!--<logfile>/\1-->'
+- replace:
+    dest: "{{eg_install_path}}/conf/opensrf_core.xml"
+    regexp: '-->.*\n(.*)<loglevel>'
+    replace: '<loglevel>'
+- replace:
+    dest: "{{eg_install_path}}/conf/opensrf_core.xml"
+    regexp: '-->.*\n(.*)</gateway>'
+    replace: '</gateway>'
