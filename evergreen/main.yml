@@ -4,14 +4,8 @@
   include: eg-web.yml
 - name: Install Evergreen
   include: eg-install.yml
-- name: Setup Rsyslog
-  include: rsyslog.yml
-  when: use_rsyslog
 - name: Setup Apache
   include: apache.yml
-- name: Install Nginx
-  include: nginx.yml
-  when: use_nginx
 - name: Install Database
   include: database.yml
   when: install_database

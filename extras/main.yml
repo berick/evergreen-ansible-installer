@@ -1,0 +1,6 @@
+- name: Setup Rsyslog
+  include: rsyslog.yml
+  when: use_rsyslog
+- name: Install Nginx
+  include: nginx.yml
+  when: use_nginx

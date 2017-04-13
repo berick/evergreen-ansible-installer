@@ -1,14 +1,27 @@
 = Evergreen / OpenSRF Ansible Installer
 
-== settings.yml
-
-Review the values contained in setting.yml and modify as needed.
-
-== Running
+== Quick How-To
 
 [source,sh]
 ---------------------------------------------------------------------------
 sudo ansible-playbook playbook.yml -e "hosts=127.0.0.1"
 ---------------------------------------------------------------------------
 
+== File Structure
+
+=== playbook.yml 
+
+Main playbook.  Run this.
+
+=== settings.yml
+
+Installation settings.  This should be the only file that needs changing. 
+
+=== */main.yml
+
+Entry point for each collection of sub-tasks.
+
+=== extras
+
+Optional packages not strictly required for OpenSRF and Evergreen.
 

@@ -1,4 +1,5 @@
-## 
+# OpenSRF / Evergreen Ansible Installer Playbook
+# Author: Bill Erickson <berickxx@gmail.com>
 
 - hosts: '{{hosts}}'
   connection: local
@@ -12,3 +13,5 @@
     include: opensrf/main.yml
   - name: Process Evergreen Tasks
     include: evergreen/main.yml
+  - name: Process Optional Packages
+    include: extras/main.yml
