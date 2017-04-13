@@ -1,21 +1,33 @@
 = Evergreen / OpenSRF Ansible Installer
+:author: Bill Erickson, King County Library System
+:email: berickxx@gmail.com      
 
 == Quick How-To
 
+1. Install Ubuntu 16.04
+2. Clone and run the Ansible playbook
+
 [source,sh]
 ---------------------------------------------------------------------------
+sudo apt-get install git ansible
+git clone --branch collab/berick/ansible-installer-ubuntu-16.04 \
+    git://git.evergreen-ils.org/working/random.git
+cd random
 sudo ansible-playbook playbook.yml -e "hosts=127.0.0.1"
 ---------------------------------------------------------------------------
+
+3. In Chrome/FF navigate to https://<HOSTNAME>/eg/staff/ and click 
+   through the SSL warning to access the staff client.
 
 == File Structure
 
 === playbook.yml 
 
-Main playbook.  Run this.
+Main playbook.  It organizes the tasks.
 
 === settings.yml
 
-Installation settings.  This should be the only file that needs changing. 
+Installation settings.  Modify as needed.
 
 === */main.yml
 
@@ -24,4 +36,3 @@ Entry point for each collection of sub-tasks.
 === extras
 
 Optional packages not strictly required for OpenSRF and Evergreen.
-
