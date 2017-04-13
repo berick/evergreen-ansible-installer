@@ -1,9 +1,9 @@
 - name: Checkout Websockets Repository
   git:
     repo: "{{websockets_repository}}"
-    dest: "{{repo_base}}/apache-websocket"
+    dest: "/tmp/apache-websocket"
 - name: Install Websockets
-  shell: cd {{repo_base}}/apache-websocket && apxs2 -i -a -c mod_websocket.c 
+  shell: cd /tmp/apache-websocket && apxs2 -i -a -c mod_websocket.c 
 - stat: path=/etc/apache2-websockets
   register: websocketsconf
 - block:
