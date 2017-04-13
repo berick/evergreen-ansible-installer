@@ -11,7 +11,10 @@
     dest: /etc/apache2/              
 - file: path=/etc/apache2/ssl state=directory
 - name: Setup SSL Certs
-  shell: cd /etc/apache2/ssl && openssl req -new -x509 -days 365 -nodes -out server.crt -keyout server.key -subj "/C=XX/ST=XX/L=XX/O=XX/OU=XX/CN={{domain_name}}"
+  shell: >
+    cd /etc/apache2/ssl
+    && openssl req -new -x509 -days 365 -nodes -out server.crt
+    -keyout server.key -subj "/C=XX/ST=XX/L=XX/O=XX/OU=XX/CN={{domain_name}}"
 - shell: /usr/sbin/a2dismod mpm_event
 - shell: /usr/sbin/a2enmod mpm_prefork
 - shell: /usr/sbin/a2enmod deflate
