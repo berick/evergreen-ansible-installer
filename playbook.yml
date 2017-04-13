@@ -15,3 +15,21 @@
     include: evergreen/main.yml
   - name: Process Optional Packages
     include: extras/main.yml
+  - block:
+    - name: Starting Services
+      become: true
+      become_user: opensrf
+      environment:
+        PATH: "{{ansible_env.PATH}}:{{eg_install_path}}/bin"
+      shell: osrf_control --localhost --restart-all
+    - name: Giving Services Time To Start...
+      pause: seconds=10
+    - name: Running Autogen
+      become: true
+      become_user: opensrf
+      environment:
+        PATH: "{{ansible_env.PATH}}:{{eg_install_path}}/bin"
+      shell: autogen.sh
+    - name: Reloading Apache
+      service: name=apache2 state=reloaded
+    when: start_services

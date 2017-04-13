@@ -28,3 +28,4 @@ dojo_version: 1.3.3
 dojo_url: http://download.dojotoolkit.org/release-{{dojo_version}}/dojo-release-{{dojo_version}}.tar.gz
 use_rsyslog: true
 use_nginx: true
+start_services: true
