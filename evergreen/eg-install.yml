@@ -15,24 +15,33 @@
     state: link
     src: "{{eg_install_path}}/var/web/xul/current/server"
     dest: "{{eg_install_path}}/var/web/xul/server"
-- copy:
+- name: Setup opensrf.xml config file
+  copy:
     src: "{{eg_install_path}}/conf/opensrf.xml.example"
     dest: "{{eg_install_path}}/conf/opensrf.xml"
     force: no
-- copy:
+- name: Setup opensrf_core.xml config file
+  copy:
     src: "{{eg_install_path}}/conf/opensrf_core.xml.example"
     dest: "{{eg_install_path}}/conf/opensrf_core.xml"
     force: no
-- get_url: url={{dojo_url}} dest=/tmp/dojo-release-{{dojo_version}}.tar.gz
-- unarchive:
+- name: Get URL for dojo
+  get_url: url={{dojo_url}} dest=/tmp/dojo-release-{{dojo_version}}.tar.gz
+- name: Unarchive dojo tarball
+  unarchive:
     src: /tmp/dojo-release-{{dojo_version}}.tar.gz
     dest: /tmp/
-- copy: src=/tmp/dojo-release-{{dojo_version}}/ dest={{eg_install_path}}/var/web/js/dojo/
-- file: dest={{eg_install_path}} owner=opensrf group=opensrf recurse=yes
-- copy: src={{eg_install_path}}/conf/srfsh.xml.example dest=/home/opensrf/.srfsh.xml force=no
-- file: dest=/home/opensrf/.srfsh.xml owner=opensrf group=opensrf
+- name: Copy dojo source files into place
+  copy: src=/tmp/dojo-release-{{dojo_version}}/ dest={{eg_install_path}}/var/web/js/dojo/
+- name: Set ownership of {{eg_install_path}} to opensrf
+  file: dest={{eg_install_path}} owner=opensrf group=opensrf recurse=yes
+- name: Setup .srfsh.xml for opensrf user
+  copy: src={{eg_install_path}}/conf/srfsh.xml.example dest=/home/opensrf/.srfsh.xml force=no
+- name: Set ownership of .srfsh.xml to opensrf
+  file: dest=/home/opensrf/.srfsh.xml owner=opensrf group=opensrf
 - name: Copy ldconfig
   copy:
     src: "{{playbook_dir}}/evergreen/evergreen.ld.conf"
     dest: /etc/ld.so.conf.d/evergreen.ld.conf
-- shell: ldconfig
+- name: Run ldconfig
+  shell: ldconfig

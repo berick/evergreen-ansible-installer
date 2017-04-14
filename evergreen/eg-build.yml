@@ -10,7 +10,8 @@
     cd {{repo_base}}/Evergreen 
     && PERL_MM_USE_DEFAULT=1 make -f 
     Open-ILS/src/extras/Makefile.install {{os_build_target}}
-- file: dest="{{repo_base}}" owner=opensrf group=opensrf recurse=yes
+- name: Set ownership of {{repo_base}} to opensrf
+  file: dest="{{repo_base}}" owner=opensrf group=opensrf recurse=yes
 - name: Build Evergreen
   become: true
   become_user: opensrf
@@ -21,4 +22,5 @@
     && autoreconf -i 
     && ./configure --prefix={{eg_install_path}} --sysconfdir={{eg_install_path}}/conf 
     && make
-- file: dest="{{eg_install_path}}" owner=opensrf group=opensrf recurse=yes
+- name: Set ownership of {{eg_install_path}} to opensrf
+  file: dest="{{eg_install_path}}" owner=opensrf group=opensrf recurse=yes

@@ -10,7 +10,8 @@
     cd {{repo_base}}/OpenSRF 
     && PERL_MM_USE_DEFAULT=1 make -f 
     src/extras/Makefile.install {{os_build_target}}
-- file: dest="{{repo_base}}" owner=opensrf group=opensrf recurse=yes
+- name: Set ownership of {{repo_base}} to opensrf
+  file: dest="{{repo_base}}" owner=opensrf group=opensrf recurse=yes
 - name: Build OpenSRF
   become: true
   become_user: opensrf
@@ -25,4 +26,5 @@
   environment:
     PATH: "{{ansible_env.PATH}}:{{eg_install_path}}/bin"
   shell: cd {{repo_base}}/OpenSRF && make install
-- file: dest="{{eg_install_path}}" owner=opensrf group=opensrf recurse=yes
+- name: Set ownership of {{eg_install_path}} to opensrf
+  file: dest="{{eg_install_path}}" owner=opensrf group=opensrf recurse=yes

@@ -4,14 +4,16 @@
     dest: "/tmp/apache-websocket"
 - name: Install Websockets
   shell: cd /tmp/apache-websocket && apxs2 -i -a -c mod_websocket.c 
-- stat: path=/etc/apache2-websockets
+- name: register variable websocketsconf
+  stat: path=/etc/apache2-websockets
   register: websocketsconf
 - block:
   - name: Create Websockets Instance
     shell: >
       sh /usr/share/doc/apache2/examples/setup-instance websockets 
       && a2dismod websocket
-  - lineinfile: 
+  - name: Confirm websockets run user is opensrf
+    lineinfile: 
       state: present 
       dest: /etc/apache2-websockets/envvars 
       regexp: 'APACHE_RUN_USER' 

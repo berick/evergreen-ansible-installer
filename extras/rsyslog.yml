@@ -11,11 +11,13 @@
     dest: "{{eg_install_path}}/conf/opensrf_core.xml"
     regexp: '<logfile>\/(.*)\n.*<!--'
     replace: '<!--<logfile>/\1-->'
-- replace:
+- name: Update opensrf_core.xml for rsyslog
+  replace:
     dest: "{{eg_install_path}}/conf/opensrf_core.xml"
     regexp: '-->.*\n(.*)<loglevel>'
     replace: '<loglevel>'
-- replace:
+- name: Update opensrf_core.xml for rsyslog
+  replace:
     dest: "{{eg_install_path}}/conf/opensrf_core.xml"
     regexp: '-->.*\n(.*)</gateway>'
     replace: '</gateway>'

@@ -9,7 +9,8 @@
     shell: /bin/bash
 # Environment changes added to ~/.bash_profile to ensure they are 
 # loaded regardless of whether opensrf is used interactively.
-- lineinfile: 
+- name: Check export PATH for opensrf user profile
+  lineinfile: 
     dest: /home/opensrf/.bash_profile
     create: yes
     owner: opensrf
@@ -17,15 +18,18 @@
     mode: 0644
     regexp: '^export PATH=' 
     line: 'export PATH="{{eg_install_path}}/bin:$PATH"'
-- lineinfile: 
+- name: Check LD_LIBRARY_PATH for opensrf user profile
+  lineinfile: 
     dest: /home/opensrf/.bash_profile
     regexp: '^export LD_LIBRARY_PATH=' 
     line: 'export LD_LIBRARY_PATH="{{eg_install_path}}/lib:/usr/local/lib:/usr/local/lib/dbd:$LD_LIBRARY_PATH"'
-- lineinfile: 
+- name: Check /etc/hosts file for public.{{domain_name}}
+  lineinfile: 
     dest: /etc/hosts
     regexp: '^127.0.1.2'
     line: '127.0.1.2    public.{{domain_name}}'
-- lineinfile: 
+- name: Check /etc/hosts file for private.{{domain_name}}
+  lineinfile: 
     dest: /etc/hosts
     regexp: '^127.0.1.3'
     line: '127.0.1.3    private.{{domain_name}}'

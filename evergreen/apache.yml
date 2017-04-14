@@ -1,34 +1,50 @@
 # Apache
-- service: name=apache2 state=stopped
-- copy:
+- name: Stop apache2
+  service: name=apache2 state=stopped
+- name: Setup eg.conf
+  copy:
     src: "{{repo_base}}/Evergreen/Open-ILS/examples/apache_24/eg_24.conf"
     dest: /etc/apache2/sites-available/eg.conf
-- copy:
+- name: Setup eg_vhost.conf
+  copy:
     src: "{{repo_base}}/Evergreen/Open-ILS/examples/apache_24/eg_vhost_24.conf"
     dest: /etc/apache2/eg_vhost.conf 
-- copy:
+- name: Setup eg_startup
+  copy:
     src: "{{repo_base}}/Evergreen/Open-ILS/examples/apache/eg_startup"
     dest: /etc/apache2/              
-- file: path=/etc/apache2/ssl state=directory
+- name: Create SSL Certs directory
+  file: path=/etc/apache2/ssl state=directory
 - name: Setup SSL Certs
   shell: >
     cd /etc/apache2/ssl
     && openssl req -new -x509 -days 365 -nodes -out server.crt
     -keyout server.key -subj "/C=XX/ST=XX/L=XX/O=XX/OU=XX/CN={{domain_name}}"
-- shell: /usr/sbin/a2dismod mpm_event
-- shell: /usr/sbin/a2enmod mpm_prefork
-- shell: /usr/sbin/a2enmod deflate
-- shell: /usr/sbin/a2enmod headers
-- shell: /usr/sbin/a2enmod expires
-- shell: /usr/sbin/a2enmod rewrite
-- shell: /usr/sbin/a2dissite 000-default
-- shell: /usr/sbin/a2ensite eg.conf
-- file: path=/var/lock/apache2 owner=opensrf group=opensrf
-- replace: 
+- name: Disable mpm_event
+  shell: /usr/sbin/a2dismod mpm_event
+- name: Enable mpm_prefork
+  shell: /usr/sbin/a2enmod mpm_prefork
+- name: Enable apache mod deflate
+  shell: /usr/sbin/a2enmod deflate
+- name: Enable apache mod headers
+  shell: /usr/sbin/a2enmod headers
+- name: Enable apache mod expires
+  shell: /usr/sbin/a2enmod expires
+- name: Enable apache mod rewrite
+  shell: /usr/sbin/a2enmod rewrite
+- name: Disable default site for apache
+  shell: /usr/sbin/a2dissite 000-default
+- name: Enable eg.conf site for apache
+  shell: /usr/sbin/a2ensite eg.conf
+- name: Change ownership of /var/lock/apache2 to opensrf
+  file: path=/var/lock/apache2 owner=opensrf group=opensrf
+- name: Change run-user for apache to opensrf
+  replace: 
     dest: /etc/apache2/envvars
     regexp: 'www-data'
     replace: 'opensrf'
-- replace: 
+- name: Set KeepAliveTimeout value
+  replace: 
     dest: /etc/apache2/apache2.conf
     regexp: 'KeepAliveTimeout .*' 
     replace: 'KeepAliveTimeout 1'

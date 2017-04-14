@@ -3,7 +3,8 @@
     cd {{repo_base}}/Evergreen
     && PERL_MM_USE_DEFAULT=1 make -f 
     Open-ILS/src/extras/Makefile.install {{os_build_target}}-developer
-- file: dest="{{repo_base}}" owner=opensrf group=opensrf recurse=yes
+- name: Set ownership of {{repo_base}} to opensrf
+  file: dest="{{repo_base}}" owner=opensrf group=opensrf recurse=yes
 - name: Install Grunt
   npm: name=grunt-cli global=true
 - name: Node Build
