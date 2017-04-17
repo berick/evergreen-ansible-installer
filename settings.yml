@@ -1,4 +1,5 @@
 ---
+hosts: '127.0.0.1'
 repo_base: /home/opensrf
 os_build_target: ubuntu-xenial 
 osrf_git_repository: git://git.evergreen-ils.org/OpenSRF.git

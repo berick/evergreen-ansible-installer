@@ -13,7 +13,11 @@ sudo apt-get install git ansible
 git clone --branch collab/berick/ansible-installer-ubuntu-16.04 \
     git://git.evergreen-ils.org/working/random.git
 cd random
-sudo ansible-playbook playbook.yml -e "hosts=127.0.0.1"
+sudo ansible-playbook playbook.yml
+
+# Alternate example demonstrating variable overrides by installing a 
+# specific OpenSRF branch.
+# sudo ansible-playbook playbook.yml --extra-vars "osrf_git_branch=rel_2_5"
 ---------------------------------------------------------------------------
 
 3. In Chrome/FF navigate to https://<HOSTNAME>/eg/staff/ and click 
