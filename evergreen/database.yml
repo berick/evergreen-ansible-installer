@@ -2,12 +2,33 @@
   apt: name={{item}} state=present
   with_items:
     - python-psycopg2 # required by postgresql_user
-    - pgtap
 - name: Install Postgres Dependencies
   shell: >
     cd {{repo_base}}/Evergreen 
     && PERL_MM_USE_DEFAULT=1 make -f 
     Open-ILS/src/extras/Makefile.install postgres-server-{{os_build_target}}
+  when: not use_pg_96
+# When PG 9.6 is enabled, add the repository then peform the 
+# equivalent of the postgres-server-{{os_build_target}} steps.
+- block:
+    - name: Add Postgresql 9.6 Apt Repository
+      shell: add-apt-repository "deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main"
+    - name: Add Postgresql 9.6 Apt Repository Key
+      shell: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
+    - name: Install Postgresql 9.6 Server
+      apt:
+        update_cache: yes
+        name: "{{item}}"
+        state: present
+      with_items: 
+        - postgresql-9.6
+        - postgresql-contrib-9.6
+        - postgresql-plperl-9.6
+        - postgresql-server-dev-9.6
+  when: use_pg_96
+# Install pgtap after PG server to avoid multiple PG server instances
+- name: Install PGTAP
+  apt: name=pgtap state=present
 - name: Start Postgres
   service: name=postgresql state=started
 - name: Create DB User

@@ -17,6 +17,7 @@ eg_admin_pass: demo123
 ejabberd_password: password
 domain_name: localhost
 install_database: true
+use_pg_96: false
 database_host: 127.0.0.1
 database_port: 5432
 database_user: evergreen
