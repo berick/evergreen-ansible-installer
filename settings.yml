@@ -44,9 +44,11 @@ database_database: evergreen
 # Create the Evergreen schema?
 create_schema: true
 
-# Install the PGTAP extension for database unit tests?
-install_pgtap: true
-
 # set to empty value to avoid loading sample data
+# Requires create_schema:true
 load_sample_data: --load-all-sample
+
+# Install the PGTAP extension for database unit tests?
+# Requires create_schema:true
+install_pgtap: true
 # --------------------------------------------------------------------------

@@ -11,20 +11,20 @@
 # When PG 9.6 is enabled, add the repository then peform the 
 # equivalent of the postgres-server-{{os_build_target}} steps.
 - block:
-    - name: Add Postgresql 9.6 Apt Repository
-      shell: add-apt-repository "deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main"
-    - name: Add Postgresql 9.6 Apt Repository Key
-      shell: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
-    - name: Install Postgresql 9.6 Server
-      apt:
-        update_cache: yes
-        name: "{{item}}"
-        state: present
-      with_items: 
-        - postgresql-9.6
-        - postgresql-contrib-9.6
-        - postgresql-plperl-9.6
-        - postgresql-server-dev-9.6
+  - name: Add Postgresql 9.6 Apt Repository
+    shell: add-apt-repository "deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main"
+  - name: Add Postgresql 9.6 Apt Repository Key
+    shell: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
+  - name: Install Postgresql 9.6 Server
+    apt:
+      update_cache: yes
+      name: "{{item}}"
+      state: present
+    with_items: 
+      - postgresql-9.6
+      - postgresql-contrib-9.6
+      - postgresql-plperl-9.6
+      - postgresql-server-dev-9.6
   when: use_pg_96
 - name: Start Postgres
   service: name=postgresql state=started
@@ -58,4 +58,7 @@
     become: true
     become_user: postgres
     postgresql_ext: name=pgtap db={{database_database}}
+  when: 
+    - create_schema
+    - install_pgtap
 
