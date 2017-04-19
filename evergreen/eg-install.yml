@@ -32,7 +32,7 @@
     src: /tmp/dojo-release-{{dojo_version}}.tar.gz
     dest: /tmp/
 - name: Copy dojo source files into place
-  copy: src=/tmp/dojo-release-{{dojo_version}}/ dest={{eg_install_path}}/var/web/js/dojo/
+  synchronize: src=/tmp/dojo-release-{{dojo_version}}/ dest={{eg_install_path}}/var/web/js/dojo/
 - name: Set ownership of {{eg_install_path}} to opensrf
   file: dest={{eg_install_path}} owner=opensrf group=opensrf recurse=yes
 - name: Setup .srfsh.xml for opensrf user
