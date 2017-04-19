@@ -7,19 +7,22 @@
   service: name=ejabberd state=restarted
 - name: Wait a moment for Ejabberd
   pause: seconds=5
-- name: Unregister Ejabberd user router@private.localhost
-  shell: ejabberdctl unregister router private.localhost
-- name: Unregister Ejabberd user opensrf@private.localhost
-  shell: ejabberdctl unregister opensrf private.localhost
-- name: Unregister Ejabberd user router@public.localhost
-  shell: ejabberdctl unregister router public.localhost
-- name: Unregister Ejabberd user opensrf@public.localhost
-  shell: ejabberdctl unregister opensrf public.localhost
-- name: Register Ejabberd user router@private.localhost
-  shell: ejabberdctl register router private.localhost {{ejabberd_password}}
-- name: Register Ejabberd user opensrf@private.localhost
-  shell: ejabberdctl register opensrf private.localhost {{ejabberd_password}}
-- name: Register Ejabberd user router@public.localhost
-  shell: ejabberdctl register router public.localhost {{ejabberd_password}}
-- name: Register Ejabberd user opensrf@public.localhost
-  shell: ejabberdctl register opensrf public.localhost {{ejabberd_password}}
+- block:
+  - name: Unregister Ejabberd user router@private.localhost
+    shell: ejabberdctl unregister router private.localhost
+  - name: Unregister Ejabberd user opensrf@private.localhost
+    shell: ejabberdctl unregister opensrf private.localhost
+  - name: Unregister Ejabberd user router@public.localhost
+    shell: ejabberdctl unregister router public.localhost
+  - name: Unregister Ejabberd user opensrf@public.localhost
+    shell: ejabberdctl unregister opensrf public.localhost
+  - name: Register Ejabberd user router@private.localhost
+    shell: ejabberdctl register router private.localhost {{ejabberd_password}}
+  - name: Register Ejabberd user opensrf@private.localhost
+    shell: ejabberdctl register opensrf private.localhost {{ejabberd_password}}
+  - name: Register Ejabberd user router@public.localhost
+    shell: ejabberdctl register router public.localhost {{ejabberd_password}}
+  - name: Register Ejabberd user opensrf@public.localhost
+    shell: ejabberdctl register opensrf public.localhost {{ejabberd_password}}
+  become: true
+  become_user: ejabberd
