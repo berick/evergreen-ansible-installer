@@ -7,7 +7,7 @@ eg_git_repository: git://git.evergreen-ils.org/Evergreen.git
 websockets_repository: https://github.com/disconnect/apache-websocket
 osrf_git_branch: master
 eg_git_branch: master
-# Clone depth zero means no clone depth limit.
+# Clone depth "0" means full clone
 osrf_clone_depth: 0
 eg_clone_depth: 0
 eg_install_path: /openils
@@ -16,18 +16,37 @@ eg_admin_user: admin
 eg_admin_pass: demo123
 ejabberd_password: password
 domain_name: localhost
+opensrf_memcached_server: ["127.0.0.1:11211"]
+dojo_version: 1.3.3
+dojo_url: http://download.dojotoolkit.org/release-{{dojo_version}}/dojo-release-{{dojo_version}}.tar.gz
+
+# Install and configure rsyslog for logging
+use_rsyslog: true
+
+# Install and configure NGINX proxy
+use_nginx: true
+
+# Start Evergreen services when the install is complete.
+start_services: true
+
+# Database Settings --------------------------------------------------------
 install_database: true
+
+# Install Postgres 9.6 from the PG apt repository?
 use_pg_96: false
+
 database_host: 127.0.0.1
 database_port: 5432
 database_user: evergreen
 database_password: evergreen
 database_database: evergreen
+
+# Create the Evergreen schema?
+create_schema: true
+
+# Install the PGTAP extension for database unit tests?
+install_pgtap: true
+
 # set to empty value to avoid loading sample data
 load_sample_data: --load-all-sample
-opensrf_memcached_server: ["127.0.0.1:11211"]
-dojo_version: 1.3.3
-dojo_url: http://download.dojotoolkit.org/release-{{dojo_version}}/dojo-release-{{dojo_version}}.tar.gz
-use_rsyslog: true
-use_nginx: true
-start_services: true
+# --------------------------------------------------------------------------

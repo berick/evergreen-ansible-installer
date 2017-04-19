@@ -26,9 +26,6 @@
         - postgresql-plperl-9.6
         - postgresql-server-dev-9.6
   when: use_pg_96
-# Install pgtap after PG server to avoid multiple PG server instances
-- name: Install PGTAP
-  apt: name=pgtap state=present
 - name: Start Postgres
   service: name=postgresql state=started
 - name: Create DB User
@@ -53,8 +50,12 @@
     --database {{database_database}} 
     --admin-user {{eg_admin_user}} 
     --admin-pass {{eg_admin_pass}}
-- name: Create PGTAP Extension
-  become: true
-  become_user: postgres
-  postgresql_ext: name=pgtap db={{database_database}}
+  when: create_schema 
+- block:
+  - name: Install PGTAP
+    apt: name=pgtap state=present
+  - name: Create PGTAP Extension
+    become: true
+    become_user: postgres
+    postgresql_ext: name=pgtap db={{database_database}}
 
