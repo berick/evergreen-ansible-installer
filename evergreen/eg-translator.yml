@@ -1,0 +1,14 @@
+- name: Install Evergreen Translator Prereqs
+  shell: >
+    cd {{repo_base}}/Evergreen
+    && PERL_MM_USE_DEFAULT=1 make -f 
+    Open-ILS/src/extras/Makefile.install {{os_build_target}}-translator
+- name: Set ownership of {{repo_base}} to opensrf
+  file: dest="{{repo_base}}" owner=opensrf group=opensrf recurse=yes
+- name: Install specified "{{ locale }}" locale(s)
+  become: true
+  become_user: opensrf
+  shell: >
+    cd {{repo_base}}/Evergreen/build/i18n
+    && make LOCALE="{{ item }}" install
+  with_items: "{{ locale }}"
