@@ -15,4 +15,6 @@
 - name: Install Database
   include: database.yml
   when: install_database
-
+- name: Setup translations
+  include: setup-translations.yml
+  when: locale is defined

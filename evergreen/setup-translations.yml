@@ -1,0 +1,36 @@
+# Apache translations
+- name: Assign variable for locale(s) for TPAC
+  vars:
+    eg_locale: "{{ item | lower | regex_replace('(\\w{2})-(\\w{2})', '\\1_\\2') }}"
+  blockinfile:
+    dest: /etc/apache2/eg_vhost.conf
+    insertafter: '    #PerlAddVar OILSWebLocale "/openils/var/data/locale/opac/fr-CA.po"'
+    marker: "# {mark} ANSIBLE MANAGED BLOCK TPAC {{ item }}"
+    block: |
+      PerlAddVar OILSWebLocale "{{ eg_locale }}"
+      PerlAddVar OILSWebLocale "/openils/var/data/locale/opac/{{ item }}.po"
+  with_items: "{{ locale }}"
+  when: locale is defined
+- name: Setup locale(s) for web staff client
+  vars:
+    staff_eg_locale: "{{ item | lower | regex_replace('(\\w{2})-(\\w{2})', '\\1_\\2') }}"
+  blockinfile:
+    dest: /etc/apache2/eg_vhost.conf
+    insertafter: '    #PerlAddVar OILSWebLocale "/openils/var/data/locale/staff/fr-CA.po"'
+    marker: "# {mark} ANSIBLE MANAGED BLOCK WEBSTAFF {{ item }}"
+    block: |
+      PerlAddVar OILSWebLocale "{{ staff_eg_locale }}"
+      PerlAddVar OILSWebLocale "/openils/var/data/locale/staff/{{ item }}.po"
+  with_items: "{{ locale }}"
+  when: locale is defined
+
+# Database translations
+- name: Install "{{ locale }}" locale(s) in database
+  with_items: "{{ locale }}"
+  when: locale is defined
+  become: true
+  become_user: postgres
+  shell: >
+    cd {{repo_base}}/Evergreen/Open-ILS/src/sql/Pg
+    && psql -d {{database_database}} -f 950.data.seed-values-{{ item }}.sql
+
