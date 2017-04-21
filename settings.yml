@@ -52,10 +52,3 @@ load_sample_data: --load-all-sample
 # Requires create_schema:true
 install_pgtap: true
 # --------------------------------------------------------------------------
-
-# optional: set some example locales
-locale:
-    - ar-JO
-    - cs-CZ
-    - es-ES
-    - fr-CA

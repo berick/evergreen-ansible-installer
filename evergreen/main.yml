@@ -1,3 +1,6 @@
+- name: Check for translations
+  include_vars: translations.yml
+  when: translations is defined
 - name: Build Evergreen
   include: eg-build.yml
 - name: Build Evergreen Web

@@ -18,6 +18,9 @@ sudo ansible-playbook playbook.yml
 # Alternate example demonstrating variable overrides by installing a 
 # specific OpenSRF branch.
 # sudo ansible-playbook playbook.yml --extra-vars "osrf_git_branch=rel_2_5"
+
+# Install with the sample locales defined in translations.yml
+# sudo ansible-playbook playbook.yml --extra-vars "translations=true"
 ---------------------------------------------------------------------------
 
 3. In Chrome/FF navigate to https://<HOSTNAME>/eg/staff/ and click 
