@@ -1,5 +1,6 @@
 # Apache translations
 - name: Assign variable for locale(s) for TPAC
+  become: true
   vars:
     eg_locale: "{{ item | lower | regex_replace('(\\w{2})-(\\w{2})', '\\1_\\2') }}"
   blockinfile:
@@ -12,6 +13,7 @@
   with_items: "{{ locale }}"
   when: locale is defined
 - name: Setup locale(s) for web staff client
+  become: true
   vars:
     staff_eg_locale: "{{ item | lower | regex_replace('(\\w{2})-(\\w{2})', '\\1_\\2') }}"
   blockinfile:

@@ -1,56 +1,78 @@
 # Apache
 - name: Stop apache2
+  become: true
   service: name=apache2 state=stopped
 - name: Setup eg.conf
+  become: true
   copy:
+    remote_src: true
     src: "{{repo_base}}/Evergreen/Open-ILS/examples/apache_24/eg_24.conf"
     dest: /etc/apache2/sites-available/eg.conf
 - name: Setup eg_vhost.conf
+  become: true
   copy:
+    remote_src: true
     src: "{{repo_base}}/Evergreen/Open-ILS/examples/apache_24/eg_vhost_24.conf"
     dest: /etc/apache2/eg_vhost.conf 
 - name: Setup eg_startup
+  become: true
   copy:
+    remote_src: true
     src: "{{repo_base}}/Evergreen/Open-ILS/examples/apache/eg_startup"
     dest: /etc/apache2/              
 - name: Create SSL Certs directory
+  become: true
   file: path=/etc/apache2/ssl state=directory
 - name: Setup SSL Certs
+  become: true
   shell: >
     cd /etc/apache2/ssl
     && openssl req -new -x509 -days 365 -nodes -out server.crt
-    -keyout server.key -subj "/C=XX/ST=XX/L=XX/O=XX/OU=XX/CN={{domain_name}}"
+    -keyout server.key -subj "/C=XX/ST=XX/L=XX/O=XX/OU=XX/CN={{web_domain}}"
 - name: Disable mpm_event
+  become: true
   shell: /usr/sbin/a2dismod mpm_event
 - name: Enable mpm_prefork
+  become: true
   shell: /usr/sbin/a2enmod mpm_prefork
 - name: Enable apache mod deflate
+  become: true
   shell: /usr/sbin/a2enmod deflate
 - name: Enable apache mod headers
+  become: true
   shell: /usr/sbin/a2enmod headers
 - name: Enable apache mod expires
+  become: true
   shell: /usr/sbin/a2enmod expires
 - name: Enable apache mod rewrite
+  become: true
   shell: /usr/sbin/a2enmod rewrite
 - name: Disable default site for apache
+  become: true
   shell: /usr/sbin/a2dissite 000-default
 - name: Enable eg.conf site for apache
+  become: true
   shell: /usr/sbin/a2ensite eg.conf
 - name: Change ownership of /var/lock/apache2 to opensrf
+  become: true
   file: path=/var/lock/apache2 owner=opensrf group=opensrf
 - name: Change run-user for apache to opensrf
+  become: true
   replace: 
     dest: /etc/apache2/envvars
     regexp: 'www-data'
     replace: 'opensrf'
 - name: Set KeepAliveTimeout value
+  become: true
   replace: 
     dest: /etc/apache2/apache2.conf
     regexp: 'KeepAliveTimeout .*' 
     replace: 'KeepAliveTimeout 1'
 - name: Restarting Apache
+  become: true
   service: name=apache2 state=started
 - name: Restarting Websockets
+  become: true
 # service name=apache2ctl-websockets state=restarted FAILS
   shell: apache2ctl-websockets restart
 

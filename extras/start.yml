@@ -12,5 +12,6 @@
   environment:
     PATH: "{{ansible_env.PATH}}:{{eg_install_path}}/bin"
   shell: autogen.sh
-- name: Reloading Apache
+- name: Reloading Apache 
+  become: true
   service: name=apache2 state=reloaded

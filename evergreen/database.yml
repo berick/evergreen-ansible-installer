@@ -1,8 +1,10 @@
 - name: Install Postgres Prereqs
+  become: true
   apt: name={{item}} state=present
   with_items:
     - python-psycopg2 # required by postgresql_user
 - name: Install Postgres Dependencies
+  become: true
   shell: >
     cd {{repo_base}}/Evergreen 
     && PERL_MM_USE_DEFAULT=1 make -f 
@@ -12,10 +14,13 @@
 # equivalent of the postgres-server-{{os_build_target}} steps.
 - block:
   - name: Add Postgresql 9.6 Apt Repository
+    become: true
     shell: add-apt-repository "deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main"
   - name: Add Postgresql 9.6 Apt Repository Key
+    become: true
     shell: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
   - name: Install Postgresql 9.6 Server
+    become: true
     apt:
       update_cache: yes
       name: "{{item}}"
@@ -27,6 +32,7 @@
       - postgresql-server-dev-9.6
   when: use_pg_96
 - name: Start Postgres
+  become: true
   service: name=postgresql state=started
 - name: Create DB User
   become: true
@@ -36,6 +42,10 @@
     password: "{{database_password}}" 
     role_attr_flags: SUPERUSER
 - name: Apply EG DB Schema
+  # eg_db_config modifies {{eg_install_path}}/conf/ files in 
+  # addition to building the schema
+  become: true
+  become_user: opensrf
   shell: >
     perl {{repo_base}}/Evergreen/Open-ILS/src/support-scripts/eg_db_config 
     {{load_sample_data}} 
@@ -53,6 +63,7 @@
   when: create_schema 
 - block:
   - name: Install PGTAP
+    become: true
     apt: name=pgtap state=present
   - name: Create PGTAP Extension
     become: true

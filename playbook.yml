@@ -2,9 +2,7 @@
 # Author: Bill Erickson <berickxx@gmail.com>
 
 - hosts: '{{hosts}}'
-  connection: local
-  # Every command not explicitly run by opensrf/postgres requires root.  
-  remote_user: root
+  remote_user: '{{deploy_user}}'
   become_method: sudo
   vars_files:
     - settings.yml

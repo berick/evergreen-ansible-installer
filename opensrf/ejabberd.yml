@@ -1,28 +1,30 @@
 - name: Copying Ejabberd Config
+  become: true
   copy:
     src: "{{playbook_dir}}/opensrf/ejabberd-config.yml"
     dest: /etc/ejabberd/ejabberd.yml
     mode: 0600
 - name: Restarting Ejabberd
+  become: true
   service: name=ejabberd state=restarted
 - name: Wait a moment for Ejabberd
   pause: seconds=5
 - block:
-  - name: Unregister Ejabberd user router@private.localhost
-    shell: ejabberdctl unregister router private.localhost
-  - name: Unregister Ejabberd user opensrf@private.localhost
-    shell: ejabberdctl unregister opensrf private.localhost
-  - name: Unregister Ejabberd user router@public.localhost
-    shell: ejabberdctl unregister router public.localhost
-  - name: Unregister Ejabberd user opensrf@public.localhost
-    shell: ejabberdctl unregister opensrf public.localhost
-  - name: Register Ejabberd user router@private.localhost
-    shell: ejabberdctl register router private.localhost {{ejabberd_password}}
-  - name: Register Ejabberd user opensrf@private.localhost
-    shell: ejabberdctl register opensrf private.localhost {{ejabberd_password}}
-  - name: Register Ejabberd user router@public.localhost
-    shell: ejabberdctl register router public.localhost {{ejabberd_password}}
-  - name: Register Ejabberd user opensrf@public.localhost
-    shell: ejabberdctl register opensrf public.localhost {{ejabberd_password}}
+  - name: Unregister Ejabberd user router@private.{{jabber_domain}}
+    shell: ejabberdctl unregister router private.{{jabber_domain}}
+  - name: Unregister Ejabberd user opensrf@private.{{jabber_domain}}
+    shell: ejabberdctl unregister opensrf private.{{jabber_domain}}
+  - name: Unregister Ejabberd user router@public.{{jabber_domain}}
+    shell: ejabberdctl unregister router public.{{jabber_domain}}
+  - name: Unregister Ejabberd user opensrf@public.{{jabber_domain}}
+    shell: ejabberdctl unregister opensrf public.{{jabber_domain}}
+  - name: Register Ejabberd user router@private.{{jabber_domain}}
+    shell: ejabberdctl register router private.{{jabber_domain}} {{ejabberd_password}}
+  - name: Register Ejabberd user opensrf@private.{{jabber_domain}}
+    shell: ejabberdctl register opensrf private.{{jabber_domain}} {{ejabberd_password}}
+  - name: Register Ejabberd user router@public.{{jabber_domain}}
+    shell: ejabberdctl register router public.{{jabber_domain}} {{ejabberd_password}}
+  - name: Register Ejabberd user opensrf@public.{{jabber_domain}}
+    shell: ejabberdctl register opensrf public.{{jabber_domain}} {{ejabberd_password}}
   become: true
   become_user: ejabberd

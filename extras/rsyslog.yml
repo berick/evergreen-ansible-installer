@@ -1,22 +1,31 @@
 - name: Configure Rsyslog
+  become: true
   when: use_rsyslog
   copy:
+    remote_src: true
     src: "{{repo_base}}/Evergreen/Open-ILS/examples/evergreen-rsyslog.conf"
     dest: /etc/rsyslog.d/evergreen.conf
 - name: Restart Rsyslog
+  become: true
   when: use_rsyslog
   service: name=rsyslog state=restarted
 - name: Update opensrf_core.xml for rsyslog
+  become: true
+  become_user: opensrf
   replace:
     dest: "{{eg_install_path}}/conf/opensrf_core.xml"
     regexp: '<logfile>\/(.*)\n.*<!--'
     replace: '<!--<logfile>/\1-->'
 - name: Update opensrf_core.xml for rsyslog
+  become: true
+  become_user: opensrf
   replace:
     dest: "{{eg_install_path}}/conf/opensrf_core.xml"
     regexp: '-->.*\n(.*)<loglevel>'
     replace: '<loglevel>'
 - name: Update opensrf_core.xml for rsyslog
+  become: true
+  become_user: opensrf
   replace:
     dest: "{{eg_install_path}}/conf/opensrf_core.xml"
     regexp: '-->.*\n(.*)</gateway>'

@@ -4,17 +4,17 @@
     dest: "{{repo_base}}/OpenSRF"
     depth: "{{osrf_clone_depth}}"
     version: "{{osrf_git_branch}}"
+    force: "{{force_git_checkout}}"
 - name: Install OpenSRF Prereqs
   become: true
   shell: >
     cd {{repo_base}}/OpenSRF 
     && PERL_MM_USE_DEFAULT=1 make -f 
     src/extras/Makefile.install {{os_build_target}}
-- name: Set ownership of {{repo_base}} to opensrf
-  file: dest="{{repo_base}}" owner=opensrf group=opensrf recurse=yes
-- name: Build OpenSRF
+- name: Set ownership of {{repo_base}} to {{deploy_user}}
   become: true
-  become_user: opensrf
+  file: dest="{{repo_base}}" owner={{deploy_user}} group={{deploy_user}} recurse=yes
+- name: Build OpenSRF
   environment:
     PATH: "{{ansible_env.PATH}}:{{eg_install_path}}/bin"
   shell: >
@@ -23,8 +23,10 @@
     && ./configure --prefix={{eg_install_path}} --sysconfdir={{eg_install_path}}/conf 
     && make
 - name: Install OpenSRF Files
+  become: true
   environment:
     PATH: "{{ansible_env.PATH}}:{{eg_install_path}}/bin"
   shell: cd {{repo_base}}/OpenSRF && make install
 - name: Set ownership of {{eg_install_path}} to opensrf
+  become: true
   file: dest="{{eg_install_path}}" owner=opensrf group=opensrf recurse=yes

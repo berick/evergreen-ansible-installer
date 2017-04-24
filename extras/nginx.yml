@@ -1,53 +1,68 @@
 # Apache must be reconfigured before NGINX is installed 
 # or the NGINX install will fail on conflicting ports
 - name: Change Apache ports.conf to listen 7080
+  become: true
   replace: 
     dest: /etc/apache2/ports.conf
     regexp: 'Listen 80'
     replace: 'Listen 7080'
 - name: Change Apache ports.conf to listen 7443
+  become: true
   replace: 
     dest: /etc/apache2/ports.conf
     regexp: 'Listen 443'
     replace: 'Listen 7443'
 - name: Change Evergreen eg.conf to listen 7080
+  become: true
   replace: 
     dest: /etc/apache2/sites-available/eg.conf
     regexp: ':80'
     replace: ':7080'
 - name: Change Evergreen eg.conf to listen 7443
+  become: true
   replace: 
     dest: /etc/apache2/sites-available/eg.conf
     regexp: ':443'
     replace: ':7443'
 - name: Restart Apache With New Ports
+  become: true
   service: name=apache2 state=restarted
 - name: Install Nginx Prereqs
+  become: true
   apt: name=nginx state=present
 - name: Install NGINX Configs
+  become: true
   copy:
+    remote_src: true
     src: "{{repo_base}}/OpenSRF/examples/nginx/osrf-ws-http-proxy"
     dest: /etc/nginx/sites-available/osrf-ws-http-proxy
 - name: Link NGINX Configs
+  become: true
   file:
     state: link
     src: /etc/nginx/sites-available/osrf-ws-http-proxy
     dest: /etc/nginx/sites-enabled/osrf-ws-http-proxy
 - name: Remove Default NGINX Site
+  become: true
   file:
     state: absent
     dest: /etc/nginx/sites-available/default
 - name: Restart NGINX With New Config
+  become: true
   service: name=nginx state=restarted
 - name: Update OpenSRF WS JS Port
+  become: true
+  become_user: opensrf
   lineinfile: 
-    dest: /openils/lib/javascript/opensrf_ws.js
+    dest: "{{eg_install_path}}/lib/javascript/opensrf_ws.js"
     regexp: '^var WEBSOCKET_PORT_SSL = 7682;'
     line: 'var WEBSOCKET_PORT_SSL = 443;'
 - name: Update OpenSRF WS JS Port (Shared)
   # This file is not currently used, but may be later.
+  become: true
+  become_user: opensrf
   lineinfile: 
-    dest: /openils/lib/javascript/opensrf_ws_shared.js
+    dest: "{{eg_install_path}}/lib/javascript/opensrf_ws_shared.js"
     regexp: '^var WEBSOCKET_PORT_SSL = 7682;'
     line: 'var WEBSOCKET_PORT_SSL = 443;'
 

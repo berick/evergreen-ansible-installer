@@ -1,25 +1,23 @@
 - name: Install Evergreen Web Prereqs
+  become: true
   shell: >
     cd {{repo_base}}/Evergreen
     && PERL_MM_USE_DEFAULT=1 make -f 
     Open-ILS/src/extras/Makefile.install {{os_build_target}}-developer
-- name: Set ownership of {{repo_base}} to opensrf
-  file: dest="{{repo_base}}" owner=opensrf group=opensrf recurse=yes
+- name: Set ownership of {{repo_base}} to {{deploy_user}}
+  become: true
+  file: dest="{{repo_base}}" owner={{deploy_user}} group={{deploy_user}} recurse=yes
 - name: Install Grunt
+  become: true
   npm: name=grunt-cli global=true
 - name: Node Build
   become: true
-  become_user: opensrf
   npm: path={{repo_base}}/Evergreen/Open-ILS/web/js/ui/default/staff
 - name: Grunt Build
-  become: true
-  become_user: opensrf
   shell: >
     cd {{repo_base}}/Evergreen/Open-ILS/web/js/ui/default/staff 
     && grunt build
 - name: Grunt Test
-  become: true
-  become_user: opensrf
   shell: >
     cd {{repo_base}}/Evergreen/Open-ILS/web/js/ui/default/staff 
     && grunt test

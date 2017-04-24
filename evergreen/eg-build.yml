@@ -4,17 +4,17 @@
     dest: "{{repo_base}}/Evergreen"
     depth: "{{eg_clone_depth}}"
     version: "{{eg_git_branch}}"
+    force: "{{force_git_checkout}}"
 - name: Install Evergreen Prereqs
   become: true
   shell: >
     cd {{repo_base}}/Evergreen 
     && PERL_MM_USE_DEFAULT=1 make -f 
     Open-ILS/src/extras/Makefile.install {{os_build_target}}
-- name: Set ownership of {{repo_base}} to opensrf
-  file: dest="{{repo_base}}" owner=opensrf group=opensrf recurse=yes
-- name: Build Evergreen
+- name: Set ownership of {{repo_base}} to {{deploy_user}}
   become: true
-  become_user: opensrf
+  file: dest={{repo_base}} owner={{deploy_user}} group={{deploy_user}} recurse=yes
+- name: Build Evergreen
   environment:
     PATH: "{{ansible_env.PATH}}:{{eg_install_path}}/bin"
   shell: >
@@ -22,5 +22,3 @@
     && autoreconf -i 
     && ./configure --prefix={{eg_install_path}} --sysconfdir={{eg_install_path}}/conf 
     && make
-- name: Set ownership of {{eg_install_path}} to opensrf
-  file: dest="{{eg_install_path}}" owner=opensrf group=opensrf recurse=yes

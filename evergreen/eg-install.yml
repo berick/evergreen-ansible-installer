@@ -6,22 +6,28 @@
     cd {{repo_base}}/Evergreen 
     && make STAFF_CLIENT_STAMP_ID={{eg_stamp_id}} install
 - name: Create XUL Current Symlink
+  become: true
   file:
     state: link
     src: "{{eg_install_path}}/var/web/xul/{{eg_stamp_id}}"
     dest: "{{eg_install_path}}/var/web/xul/current"
 - name: Create XUL Server Symlink
+  become: true
   file:
     state: link
     src: "{{eg_install_path}}/var/web/xul/current/server"
     dest: "{{eg_install_path}}/var/web/xul/server"
 - name: Setup opensrf.xml config file
+  become: true
   copy:
+    remote_src: true
     src: "{{eg_install_path}}/conf/opensrf.xml.example"
     dest: "{{eg_install_path}}/conf/opensrf.xml"
     force: no
 - name: Setup opensrf_core.xml config file
+  become: true
   copy:
+    remote_src: true
     src: "{{eg_install_path}}/conf/opensrf_core.xml.example"
     dest: "{{eg_install_path}}/conf/opensrf_core.xml"
     force: no
@@ -32,16 +38,29 @@
     src: /tmp/dojo-release-{{dojo_version}}.tar.gz
     dest: /tmp/
 - name: Copy dojo source files into place
-  synchronize: src=/tmp/dojo-release-{{dojo_version}}/ dest={{eg_install_path}}/var/web/js/dojo/
+  become: true
+  # 'synchronize' is much faster than 'copy' for large directories
+  # delegate_to tells synchronize source files live on the remote machine.
+  delegate_to: "{{inventory_hostname}}"
+  synchronize: 
+    src: /tmp/dojo-release-{{dojo_version}}/
+    dest: "{{eg_install_path}}/var/web/js/dojo/"
 - name: Set ownership of {{eg_install_path}} to opensrf
+  become: true
   file: dest={{eg_install_path}} owner=opensrf group=opensrf recurse=yes
 - name: Setup .srfsh.xml for opensrf user
-  copy: src={{eg_install_path}}/conf/srfsh.xml.example dest=/home/opensrf/.srfsh.xml force=no
-- name: Set ownership of .srfsh.xml to opensrf
-  file: dest=/home/opensrf/.srfsh.xml owner=opensrf group=opensrf
+  become: true
+  become_user: opensrf
+  copy: 
+    remote_src: true
+    src: "{{eg_install_path}}/conf/srfsh.xml.example"
+    dest: /home/opensrf/.srfsh.xml 
+    force: no
 - name: Copy ldconfig
+  become: true
   copy:
     src: "{{playbook_dir}}/evergreen/evergreen.ld.conf"
     dest: /etc/ld.so.conf.d/evergreen.ld.conf
 - name: Run ldconfig
+  become: true
   shell: ldconfig
