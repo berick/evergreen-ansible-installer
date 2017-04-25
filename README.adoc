@@ -21,6 +21,9 @@ sudo ansible-playbook playbook.yml
 
 # Install with the sample locales defined in translations.yml
 # sudo ansible-playbook playbook.yml --extra-vars "translations=true"
+
+# Install with a different deployment user (named 'deploy') on a remote machine
+# sudo ansible-playbook playbook.yml -e hosts=other.example.org -e deploy_user=deploy
 ---------------------------------------------------------------------------
 
 3. In Chrome/FF navigate to https://<HOSTNAME>/eg/staff/ and click 
