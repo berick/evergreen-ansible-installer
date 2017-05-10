@@ -46,7 +46,7 @@
   become: true
   file:
     state: absent
-    dest: /etc/nginx/sites-available/default
+    dest: /etc/nginx/sites-enabled/default
 - name: Restart NGINX With New Config
   become: true
   service: name=nginx state=restarted
