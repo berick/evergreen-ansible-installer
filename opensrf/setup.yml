@@ -9,13 +9,20 @@
   user:
     name: opensrf
     shell: /bin/bash
-# Environment changes added to ~/.bash_profile to ensure they are 
-# loaded regardless of whether opensrf is used interactively.
+# Add environment changes to ~/.bashrc for consistency with OpenSRF/Evergreen
+# installtion docs and crontab examples.  Beware that ~/.bashrc is only
+# processed in certain circumstances.  This is why most EG CRONTAB examples
+# start with ". ~/.bashrc".
+#   sudo -u opensrf <command>       => ~/.bashrc
+#   sudo su opensrf                 => ~/.bashrc
+#   sudo -i -u opensrf <command>    => ~/.bash_profile
+#   sudo su -l opensrf              => ~/.bash_profile
+#   crontab user                    => ~/.bash_profile
 - name: Check export PATH for opensrf user profile
   become: true
   become_user: opensrf
   lineinfile: 
-    dest: /home/opensrf/.bash_profile
+    dest: /home/opensrf/.bashrc
     create: yes
     owner: opensrf
     group: opensrf
@@ -26,7 +33,7 @@
   become: true
   become_user: opensrf
   lineinfile: 
-    dest: /home/opensrf/.bash_profile
+    dest: /home/opensrf/.bashrc
     regexp: '^export LD_LIBRARY_PATH=' 
     line: 'export LD_LIBRARY_PATH="{{eg_install_path}}/lib:/usr/local/lib:/usr/local/lib/dbd:$LD_LIBRARY_PATH"'
 - name: Add public/private jabber hosts to /etc/hosts
