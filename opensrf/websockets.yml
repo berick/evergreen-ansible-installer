@@ -28,6 +28,9 @@
       remote_src: true
       src: "{{repo_base}}/OpenSRF/examples/apache_24/websockets/apache2.conf"
       dest: /etc/apache2-websockets/apache2.conf
+  - name: Reload Systemd Configs
+    become: true
+    shell: systemctl daemon-reload
   when: websocketsconf.stat.isdir is not defined
 # NOTE: restarting websockets here fails because the SSL cert is not yet in place
 

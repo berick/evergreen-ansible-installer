@@ -1,7 +1,11 @@
 # Apache
-- name: Stop apache2
+- name: Stop Apache2
   become: true
   service: name=apache2 state=stopped
+- name: Stop Apache2 Websockets
+  become: true
+# TODO: Use ansible 2.2 service: use=systemd
+  shell: systemctl stop apache2-websockets
 - name: Setup eg.conf
   become: true
   copy:
@@ -68,13 +72,4 @@
     dest: /etc/apache2/apache2.conf
     regexp: 'KeepAliveTimeout .*' 
     replace: 'KeepAliveTimeout 1'
-- name: Restarting Apache
-  become: true
-  service: name=apache2 state=started
-- name: Restarting Websockets
-  become: true
-# service name=apache2ctl-websockets state=restarted FAILS
-# ansible 2.2 supports a use=systemd flag that would likley resolve
-# this, since this works: systemctl restart apache2-websockets
-  shell: apache2ctl-websockets restart
-
+# Leave Apache's stopped until Evergreen services are started.

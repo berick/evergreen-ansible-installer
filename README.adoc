@@ -17,10 +17,10 @@ sudo ansible-playbook playbook.yml
 
 # Alternate example demonstrating variable overrides by installing a 
 # specific OpenSRF branch.
-# sudo ansible-playbook playbook.yml --extra-vars "osrf_git_branch=rel_2_5"
+# sudo ansible-playbook playbook.yml -e osrf_git_branch=rel_2_5
 
 # Install with the sample locales defined in translations.yml
-# sudo ansible-playbook playbook.yml --extra-vars "translations=true"
+# sudo ansible-playbook playbook.yml -e translations=true
 
 # Install with a different deployment user (named 'deploy') on a remote machine
 # sudo ansible-playbook playbook.yml -e hosts=other.example.org -e deploy_user=deploy
@@ -45,4 +45,5 @@ Entry point for each collection of sub-tasks.
 
 === extras
 
-Optional packages not strictly required for OpenSRF and Evergreen.
+Optional packages and configuration not strictly required for OpenSRF 
+and Evergreen.

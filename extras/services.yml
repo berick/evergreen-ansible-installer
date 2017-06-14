@@ -1,0 +1,19 @@
+- name: Install OpenSRF Service File
+  become: true
+  template: 
+    src: extras/service-files/opensrf.service.j2
+    dest: /lib/systemd/system/opensrf.service 
+    owner: root
+    group: root
+    mode: 0644
+- name: Install Evergreen Reporter Service File
+  become: true
+  template: 
+    src: extras/service-files/evergreen-reporter.service.j2
+    dest: /lib/systemd/system/evergreen-reporter.service 
+    owner: root
+    group: root
+    mode: 0644
+- name: Reload Systemd Configs
+  become: true
+  shell: systemctl daemon-reload

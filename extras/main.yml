@@ -4,6 +4,9 @@
 - name: Install Nginx
   include: nginx.yml
   when: use_nginx
+- name: Install Service Files
+  include: services.yml
+  when: use_service_files
 - name: Starting Services
   include: start.yml
   when: start_services

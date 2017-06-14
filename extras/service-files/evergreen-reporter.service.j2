@@ -1,0 +1,18 @@
+[Unit]
+Description=Evergreen Reporter
+After=opensrf.service
+BindsTo=opensrf.service
+
+[Service]
+User=opensrf
+Group=opensrf
+Type=forking
+Environment=PATH=/openils/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+#ExecStartPre=/bin/sleep 2
+
+# TODO: -c template variable
+ExecStart=/openils/bin/clark-kent.pl --daemon
+ExecStopPost=/bin/rm /tmp/reporter-LOCK
+
+#[Install]
+#WantedBy=multi-user.target

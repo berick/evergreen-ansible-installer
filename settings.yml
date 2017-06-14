@@ -39,6 +39,11 @@ use_rsyslog: true
 # Install and configure NGINX proxy
 use_nginx: true
 
+# Install systemd service files and use them to stop/start services.
+# Disabled by default since EG documentation generally refers to
+# the osrf_control script instead.
+use_service_files: false
+
 # Start Evergreen services when the install is complete.
 start_services: true
 
