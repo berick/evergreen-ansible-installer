@@ -30,6 +30,9 @@
 - name: Install Nginx Prereqs
   become: true
   apt: name=nginx state=present
+- name: Install apache module rpaf
+  become: true
+  apt: name=libapache2-mod-rpaf state=present
 - name: Install NGINX Configs
   become: true
   copy:
