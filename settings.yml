@@ -2,7 +2,6 @@
 hosts: '127.0.0.1'
 deploy_user: opensrf
 repo_base: /home/{{deploy_user}}
-os_build_target: ubuntu-xenial 
 osrf_git_repository: git://git.evergreen-ils.org/OpenSRF.git
 eg_git_repository: git://git.evergreen-ils.org/Evergreen.git
 websocketd_version: 0.3.0

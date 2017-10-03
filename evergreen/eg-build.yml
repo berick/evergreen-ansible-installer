@@ -5,12 +5,12 @@
     depth: "{{eg_clone_depth}}"
     version: "{{eg_git_branch}}"
     force: "{{force_git_checkout}}"
-- name: Install Evergreen Prereqs
+- name: Install Evergreen Prereqs for {{ansible_distribution|lower}}-{{ansible_distribution_release}}
   become: true
   shell: >
     cd {{repo_base}}/Evergreen 
     && PERL_MM_USE_DEFAULT=1 make -f 
-    Open-ILS/src/extras/Makefile.install {{os_build_target}}
+    Open-ILS/src/extras/Makefile.install {{ansible_distribution|lower}}-{{ansible_distribution_release}}
 - name: Set ownership of {{repo_base}} to {{deploy_user}}
   become: true
   file: dest={{repo_base}} owner={{deploy_user}} group={{deploy_user}} recurse=yes

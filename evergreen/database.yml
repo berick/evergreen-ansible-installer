@@ -8,10 +8,10 @@
   shell: >
     cd {{repo_base}}/Evergreen 
     && PERL_MM_USE_DEFAULT=1 make -f 
-    Open-ILS/src/extras/Makefile.install postgres-server-{{os_build_target}}
+    Open-ILS/src/extras/Makefile.install postgres-server-{{ansible_distribution|lower}}-{{ansible_distribution_release}}
   when: not use_pg_96
 # When PG 9.6 is enabled, add the repository then peform the 
-# equivalent of the postgres-server-{{os_build_target}} steps.
+# equivalent of the postgres-server-{{ansible_distribution|lower}}-{{ansible_distribution_release}} steps.
 - block:
   - name: Add Postgresql 9.6 Apt Repository
     become: true
