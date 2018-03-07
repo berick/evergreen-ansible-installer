@@ -12,18 +12,18 @@
     dest: /etc/apache2/ports.conf
     regexp: 'Listen 443'
     replace: 'Listen 7443'
-- name: Change Evergreen eg.conf to listen 7080
+- name: Change Evergreen VirtualHost 80 to 7080
   become: true
   replace: 
     dest: /etc/apache2/sites-available/eg.conf
-    regexp: ':80'
-    replace: ':7080'
-- name: Change Evergreen eg.conf to listen 7443
+    regexp: 'VirtualHost \*:80'
+    replace: 'VirtualHost *:7080'
+- name: Change Evergreen VirtualHost 443 to 7443
   become: true
   replace: 
     dest: /etc/apache2/sites-available/eg.conf
-    regexp: ':443'
-    replace: ':7443'
+    regexp: 'VirtualHost \*:443'
+    replace: 'VirtualHost *:7443'
 - name: Restart Apache With New Ports
   become: true
   service: name=apache2 state=restarted
