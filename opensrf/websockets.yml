@@ -1,39 +1,10 @@
-- name: Checkout Websockets Repository
-  git:
-    repo: "{{websockets_repository}}"
-    dest: "/tmp/apache-websocket"
-    force: "{{force_git_checkout}}"
-- name: Install Websockets
+- name: Download Websocketd
+  shell: cd /tmp/ && wget --quiet {{websocketd_url}}
+- name: Unpack Websocketd
+  unarchive:
+    src: /tmp/{{websocketd_package}}
+    dest: /tmp/
+    remote_src: yes
+- name: Install Websocketd
   become: true
-  shell: cd /tmp/apache-websocket && apxs2 -i -a -c mod_websocket.c 
-- name: register variable websocketsconf
-  stat: path=/etc/apache2-websockets
-  register: websocketsconf
-- block:
-  - name: Create Websockets Instance
-    become: true
-    shell: >
-      sh /usr/share/doc/apache2/examples/setup-instance websockets 
-      && a2dismod websocket
-  - name: Confirm websockets run user is opensrf
-    become: true
-    lineinfile: 
-      state: present 
-      dest: /etc/apache2-websockets/envvars 
-      regexp: 'APACHE_RUN_USER' 
-      line: 'export APACHE_RUN_USER=opensrf'
-  - name: Copy Example Websockets apache2.conf
-    become: true
-    copy:
-      remote_src: true
-      src: "{{repo_base}}/OpenSRF/examples/apache_24/websockets/apache2.conf"
-      dest: /etc/apache2-websockets/apache2.conf
-  - name: Reload Systemd Configs
-    become: true
-    shell: systemctl daemon-reload
-  - name: Enable Websockets for Systemd
-    become: true
-    shell: systemctl enable apache2-websockets
-  when: websocketsconf.stat.isdir is not defined
-# NOTE: restarting websockets here fails because the SSL cert is not yet in place
-
+  shell: cp /tmp/websocketd /usr/local/bin/

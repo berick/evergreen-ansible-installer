@@ -4,10 +4,6 @@
 
 [Unit]
 Description=Open Service Request Framework
-After=ejabberd.service memcached.service
-Before=apache2.service apache2-websockets.service
-Requries=memcached.service
-BindsTo=ejabberd.service
 
 [Service]
 User=opensrf
@@ -16,14 +12,9 @@ Type=oneshot
 RemainAfterExit=yes
 Environment=PATH=/openils/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 Environment=LD_LIBRARY_PATH=/openils/lib:/usr/local/lib:/usr/local/lib/dbd:$LD_LIBRARY_PATH
-#ExecStartPre=/bin/sleep 5
 ExecStart=/openils/bin/osrf_control -l --start-all
-#ExecStartPost=/bin/sleep 10
-#ExecStartPost=-/bin/systemctl restart apache2.service
-#ExecStartPost=-/bin/systemctl restart apache2-websockets.service
 ExecStop=/openils/bin/osrf_control -l --stop-all
 
 #[Install]
 #WantedBy=multi-user.target
-#Alias=opensrf.service
 
