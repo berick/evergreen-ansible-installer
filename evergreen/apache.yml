@@ -2,10 +2,6 @@
 - name: Stop Apache2
   become: true
   service: name=apache2 state=stopped
-- name: Stop Apache2 Websockets
-  become: true
-# TODO: Use ansible 2.2 service: use=systemd
-  shell: systemctl stop apache2-websockets
 - name: Setup eg.conf
   become: true
   copy:

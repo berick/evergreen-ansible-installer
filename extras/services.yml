@@ -6,6 +6,14 @@
     owner: root
     group: root
     mode: 0644
+- name: Install OpenSRF Websocketd Service File
+  become: true
+  template: 
+    src: extras/service-files/websocketd-osrf.service.j2
+    dest: /lib/systemd/system/websocketd-osrf.service
+    owner: root
+    group: root
+    mode: 0644
 - name: Install Evergreen Reporter Service File
   become: true
   template: 
@@ -17,3 +25,13 @@
 - name: Reload Systemd Configs
   become: true
   shell: systemctl daemon-reload
+- name: Enable OpenSRF Service
+  become: true
+  shell: systemctl enable opensrf
+- name: Enable OpenSRF Websocketd Service
+  become: true
+  shell: systemctl enable websocketd-osrf
+- name: Enable Evergreen Reporter Service
+  become: true
+  shell: systemctl enable evergreen-reporter
+
