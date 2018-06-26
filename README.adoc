@@ -10,7 +10,7 @@
 [source,sh]
 ---------------------------------------------------------------------------
 sudo apt-get install git ansible
-git clone --branch ubuntu-16.04 \
+git clone --branch ubuntu-16.04-eg-3.0 \
     https://github.com/berick/evergreen-ansible-installer.git
 cd evergreen-ansible-installer
 sudo ansible-playbook playbook.yml
