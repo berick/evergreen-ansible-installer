@@ -6,8 +6,10 @@ os_build_target: ubuntu-xenial
 osrf_git_repository: git://git.evergreen-ils.org/OpenSRF.git
 eg_git_repository: git://git.evergreen-ils.org/Evergreen.git
 websockets_repository: https://github.com/disconnect/apache-websocket
-osrf_git_branch: rel_3_0
-eg_git_branch: rel_3_0
+#kcxxx: try whatever is installed at PINES
+osrf_git_branch: master
+#kcxxx: try tags/rel_3_0_2
+eg_git_branch: master
 
 # 'no'  == build will fail on local changes
 # 'yes' == local changes will be destroyed
@@ -17,9 +19,9 @@ force_git_checkout: no
 osrf_clone_depth: 0
 eg_clone_depth: 0
 eg_install_path: /openils
-eg_stamp_id: rel_3_0
+eg_stamp_id: master
 eg_admin_user: admin
-eg_admin_pass: demo123
+eg_admin_pass: xyzzy
 
 ejabberd_password: password
 jabber_domain: localhost
