@@ -53,21 +53,6 @@
 - name: Restart NGINX With New Config
   become: true
   service: name=nginx state=restarted
-- name: Update OpenSRF WS JS Port
-  become: true
-  become_user: opensrf
-  lineinfile: 
-    dest: "{{eg_install_path}}/lib/javascript/opensrf_ws.js"
-    regexp: '^var WEBSOCKET_PORT_SSL = 7682;'
-    line: 'var WEBSOCKET_PORT_SSL = 443;'
-- name: Update OpenSRF WS JS Port (Shared)
-  # This file is not currently used, but may be later.
-  become: true
-  become_user: opensrf
-  lineinfile: 
-    dest: "{{eg_install_path}}/lib/javascript/opensrf_ws_shared.js"
-    regexp: '^var WEBSOCKET_PORT_SSL = 7682;'
-    line: 'var WEBSOCKET_PORT_SSL = 443;'
 - name: Generate NGINX ssl_dhparam key
   become: true
   shell: openssl dhparam -out /etc/apache2/ssl/dhparam.pem 2048

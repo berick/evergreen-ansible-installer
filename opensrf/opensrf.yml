@@ -14,13 +14,17 @@
 - name: Set ownership of {{repo_base}} to {{deploy_user}}
   become: true
   file: dest="{{repo_base}}" owner={{deploy_user}} group={{deploy_user}} recurse=yes
+- name: Apply Proxy JS Websockets Port
+  set_fact:
+    osrf_ws_port: --with-websockets-port=443
+  when: use_nginx
 - name: Build OpenSRF
   environment:
     PATH: "{{ansible_env.PATH}}:{{eg_install_path}}/bin"
   shell: >
     cd {{repo_base}}/OpenSRF 
     && autoreconf -i 
-    && ./configure --prefix={{eg_install_path}} --sysconfdir={{eg_install_path}}/conf 
+    && ./configure --prefix={{eg_install_path}} --sysconfdir={{eg_install_path}}/conf {{osrf_ws_port}}
     && make
 - name: Install OpenSRF Files
   become: true
