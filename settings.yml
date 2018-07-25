@@ -13,11 +13,22 @@ eg_git_branch: master
 # 'yes' == local changes will be destroyed
 force_git_checkout: no
 
-# Clone depth "0" means full clone
+# Git clone depth.
+# Clone depth "0" means full clone. (best for development).
+# Clone depth "1" does a shallow clone, which is smaller and quicker, 
+# but does not give you the full repository history.
 osrf_clone_depth: 0
 eg_clone_depth: 0
+
+# Root directory for all OpenSRF/Evergreen install files.
 eg_install_path: /openils
+
+# XUL client server version stamp.
+# This should match the Target Server ID of the intended XUL client.
+# Note however, symlinks can be added after the fact by hand to 
+# support different XUL client versions.
 eg_stamp_id: master
+
 eg_admin_user: admin
 eg_admin_pass: demo123
 
@@ -28,8 +39,10 @@ jabber_domain_addr: 127.0.1.2
 # Host domain used by web clients.
 # TODO add to apache eg.conf ServerName
 web_domain: localhost
+
 # TODO add cache servers to opensrf.xml/eg_vhost.conf
 opensrf_memcached_server: ["127.0.0.1:11211"]
+
 dojo_version: 1.3.3
 dojo_url: http://download.dojotoolkit.org/release-{{dojo_version}}/dojo-release-{{dojo_version}}.tar.gz
 
@@ -37,9 +50,13 @@ dojo_url: http://download.dojotoolkit.org/release-{{dojo_version}}/dojo-release-
 use_rsyslog: true
 
 # Install and configure NGINX proxy
+# Not this is not an Apache replacement, just a proxy.
+# It's primary benefit is allowing port 443 connections to be shared
+# between HTTPS and websockets.
 use_nginx: true
 
 # Modified programmaticlly to use 443 when nginx is enabled.
+# Defaults to OpenSRF's port 7682
 osrf_ws_port:
 
 # Install systemd service files and use them to stop/start services.
