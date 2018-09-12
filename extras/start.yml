@@ -24,4 +24,4 @@
 - name: Starting Websockets
   become: true
   shell: systemctl restart websocketd-osrf
-
+  when: use_service_files
