@@ -18,7 +18,7 @@
   become: true
   copy:
     remote_src: true
-    src: "{{repo_base}}/Evergreen/Open-ILS/examples/apache/eg_startup"
+    src: "{{repo_base}}/Evergreen/Open-ILS/examples/apache_24/eg_startup"
     dest: /etc/apache2/              
 - name: Create SSL Certs directory
   become: true
