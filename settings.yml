@@ -71,7 +71,9 @@ websocketd_port: 7682
 # Options include:
 #   --origin=domain[:port],origin[:port],...
 #   --sameorigin
-websocketd_origin: --origin={{web_domain}}
+#websocketd_origin: --origin={{web_domain}}
+# Avoid origin restrictions by default
+websocketd_origin:
 
 # Install systemd service files and use them to stop/start services.
 # Disabled by default since EG documentation generally refers to
