@@ -9,6 +9,9 @@
 
 [source,sh]
 ---------------------------------------------------------------------------
+# Use the latest ansible version for Ubuntu
+sudo apt-add-repository ppa:ansible/ansible
+sudo apt-get update
 sudo apt-get install git ansible
 git clone --branch ubuntu-16.04 \
     https://github.com/berick/evergreen-ansible-installer.git

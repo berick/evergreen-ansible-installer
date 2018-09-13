@@ -9,6 +9,7 @@
   file: dest="{{repo_base}}" owner={{deploy_user}} group={{deploy_user}} recurse=yes
 - name: AngularJS Node Build
   become: true
+  become_user: opensrf
   npm: path={{repo_base}}/Evergreen/Open-ILS/web/js/ui/default/staff
 - name: AngularJS npm build
   shell: >
@@ -20,6 +21,7 @@
     && npm run test
 - name: Angular Node Build
   become: true
+  become_user: opensrf
   npm: path={{repo_base}}/Evergreen/Open-ILS/src/eg2
 - name: Angular build
   shell: >

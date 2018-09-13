@@ -61,8 +61,7 @@ use_nginx: true
 # Defaults to OpenSRF's port 7682
 osrf_ws_port:
 
-# Settings applied to the websocketd systemd service file,
-# when use_service_files=true
+# Settings applied to the websocketd systemd service file
 websocketd_maxforks: 250
 websocketd_loglevel: error
 websocketd_port: 7682
@@ -76,9 +75,11 @@ websocketd_port: 7682
 websocketd_origin:
 
 # Install systemd service files and use them to stop/start services.
-# Disabled by default since EG documentation generally refers to
+# Most disabled by default since EG documentation generally refers to
 # the osrf_control script instead.
-use_service_files: false
+use_service_opensrf: false
+use_service_reporter: false
+use_service_websocketd: true
 
 # Start Evergreen services when the install is complete.
 start_services: true
