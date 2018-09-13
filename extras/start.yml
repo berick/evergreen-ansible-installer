@@ -4,12 +4,12 @@
   environment:
     PATH: "{{ansible_env.PATH}}:{{eg_install_path}}/bin"
   shell: osrf_control --localhost --restart-all
-  when: not use_service_files
+  when: not use_service_opensrf
 - name: Starting Services (systemd)
   become: true
 # NOTE: ansible 2.2 adds a service: use=systemd flag
   shell: systemctl restart opensrf.service
-  when: use_service_files
+  when: use_service_opensrf
 - name: Giving Services Time To Start...
   pause: seconds=10
 - name: Running Autogen
@@ -24,4 +24,4 @@
 - name: Starting Websockets
   become: true
   shell: systemctl restart websocketd-osrf
-  when: use_service_files
+  when: use_service_websocketd
