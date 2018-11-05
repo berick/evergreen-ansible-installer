@@ -1,8 +1,8 @@
 - name: Install Postgres Prereqs
-  become: true
-  apt: name={{item}} state=present
-  with_items:
-    - python-psycopg2 # required by postgresql_user
+  apt:
+    pkg:
+      - python-psycopg2 # required by postgresql_user
+    state: present
 - name: Install Postgres Dependencies
   become: true
   shell: >
@@ -25,11 +25,11 @@
       update_cache: yes
       name: "{{item}}"
       state: present
-    with_items: 
-      - postgresql-9.6
-      - postgresql-contrib-9.6
-      - postgresql-plperl-9.6
-      - postgresql-server-dev-9.6
+      pkg:
+        - postgresql-9.6
+        - postgresql-contrib-9.6
+        - postgresql-plperl-9.6
+        - postgresql-server-dev-9.6
   when: use_pg_96
 - name: Start Postgres
   become: true
