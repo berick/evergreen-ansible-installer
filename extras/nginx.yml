@@ -71,11 +71,11 @@
   file:
     state: absent
     dest: /etc/nginx/sites-enabled/default
-- name: Restart NGINX With New Config
-  become: true
-  service: name=nginx state=restarted
 - name: Generate NGINX ssl_dhparam key
   become: true
   shell: openssl dhparam -out /etc/apache2/ssl/dhparam.pem 2048
+- name: Restart NGINX With New Config
+  become: true
+  service: name=nginx state=restarted
 
 
