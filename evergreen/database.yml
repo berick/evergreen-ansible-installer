@@ -23,7 +23,6 @@
     become: true
     apt:
       update_cache: yes
-      name: "{{item}}"
       state: present
       pkg:
         - postgresql-9.6
