@@ -1,9 +1,17 @@
 - name: Copying Ejabberd Config
   become: true
   copy:
-    src: "{{playbook_dir}}/opensrf/ejabberd-config.yml"
+    src: "{{playbook_dir}}/opensrf/ejabberd-config-ubuntu-xenial.yml"
     dest: /etc/ejabberd/ejabberd.yml
     mode: 0600
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'xenial'
+- name: Copying Ejabberd Config
+  become: true
+  copy:
+    src: "{{playbook_dir}}/opensrf/ejabberd-config-ubuntu-bionic.yml"
+    dest: /etc/ejabberd/ejabberd.yml
+    mode: 0600
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'bionic'
 - name: Restarting Ejabberd
   become: true
   service: name=ejabberd state=restarted
