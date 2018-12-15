@@ -4,12 +4,14 @@
 
 == Quick How-To
 
-1. Install Ubuntu 16.04
+1. Install Ubuntu 16.04 or Ubuntu 18.04
 2. Clone and run the Ansible playbook
 
 [source,sh]
 ---------------------------------------------------------------------------
-# Use the latest ansible version for Ubuntu
+# If using Ubuntu 18.04.1 live server, ensure Universe repo is enabled
+sudo apt-add-repository universe
+# Then, use the latest ansible version for Ubuntu
 sudo apt-add-repository ppa:ansible/ansible
 sudo apt-get update
 sudo apt-get install git ansible
