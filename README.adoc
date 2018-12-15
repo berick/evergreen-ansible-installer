@@ -1,0 +1,64 @@
+= Evergreen / OpenSRF Ansible Installer
+:author: Bill Erickson, King County Library System
+:email: berickxx@gmail.com      
+
+== Quick How-To
+
+1. Install Ubuntu 16.04 or Ubuntu 18.04
+2. Clone and run the Ansible playbook
+
+[source,sh]
+---------------------------------------------------------------------------
+# If using Ubuntu 18.04.1 live server, ensure Universe repo is enabled
+sudo apt-add-repository universe
+# Then, use the latest ansible version for Ubuntu
+sudo apt-add-repository ppa:ansible/ansible
+sudo apt-get update
+sudo apt-get install git ansible
+git clone --branch ubuntu-16.04 \
+    https://github.com/berick/evergreen-ansible-installer.git
+cd evergreen-ansible-installer
+sudo ansible-playbook playbook.yml
+
+# Alternate example demonstrating variable overrides by installing a 
+# specific OpenSRF branch.
+# sudo ansible-playbook playbook.yml -e osrf_git_branch=rel_2_5
+
+# Install with the sample locales defined in translations.yml
+# sudo ansible-playbook playbook.yml -e translations=true
+
+# Install with a different deployment user (named 'deploy') on a remote machine
+# sudo ansible-playbook playbook.yml -e hosts=other.example.org -e deploy_user=deploy
+---------------------------------------------------------------------------
+
+3. In Chrome/FF navigate to https://<HOSTNAME>/eg/staff/ and click 
+   through the SSL warning to access the staff client.
+
+== Settings
+
+Settings are stored in settings.yml.  There are a lot of options.  Please
+review these values before installing.  Some items of note:
+
+* eg_stamp_id: XUL client server version
+* load_sample_data: Test data is loaded into the database by default.
+* use_nginx: NGINX is installed and used by default
+
+== File Structure
+
+=== playbook.yml 
+
+Main playbook.  It organizes the tasks.
+
+=== settings.yml
+
+Installation settings.  Modify as needed or override via -e var=val 
+ansible command line option.
+
+=== */main.yml
+
+Entry point for each collection of sub-tasks.
+
+=== extras
+
+Optional packages and configuration not strictly required for OpenSRF 
+and Evergreen.

@@ -1,0 +1,34 @@
+- name: Install Evergreen Web Prereqs
+  become: true
+  shell: >
+    cd {{repo_base}}/Evergreen
+    && PERL_MM_USE_DEFAULT=1 make -f 
+    Open-ILS/src/extras/Makefile.install {{ansible_distribution|lower}}-{{ansible_distribution_release}}-developer
+- name: Set ownership of {{repo_base}} to {{deploy_user}}
+  become: true
+  file: dest="{{repo_base}}" owner={{deploy_user}} group={{deploy_user}} recurse=yes
+- name: AngularJS Node Build
+  become: true
+  become_user: opensrf
+  npm: path={{repo_base}}/Evergreen/Open-ILS/web/js/ui/default/staff
+- name: AngularJS npm build
+  shell: >
+    cd {{repo_base}}/Evergreen/Open-ILS/web/js/ui/default/staff 
+    && npm run build-prod
+- name: AngularJS npm test
+  shell: >
+    cd {{repo_base}}/Evergreen/Open-ILS/web/js/ui/default/staff 
+    && npm run test
+- name: Angular Node Build
+  become: true
+  become_user: opensrf
+  npm: path={{repo_base}}/Evergreen/Open-ILS/src/eg2
+- name: Angular build
+  shell: >
+    cd {{repo_base}}/Evergreen/Open-ILS/src/eg2
+    && ng build --prod
+- name: Angular test
+  shell: >
+    cd {{repo_base}}/Evergreen/Open-ILS/src/eg2
+    && npm run test
+

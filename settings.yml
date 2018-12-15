@@ -1,0 +1,108 @@
+---
+hosts: '127.0.0.1'
+deploy_user: opensrf
+repo_base: /home/{{deploy_user}}
+osrf_git_repository: git://git.evergreen-ils.org/OpenSRF.git
+eg_git_repository: git://git.evergreen-ils.org/Evergreen.git
+websocketd_version: 0.3.0
+websocketd_package: websocketd-{{websocketd_version}}-linux_amd64.zip
+websocketd_url: https://github.com/joewalnes/websocketd/releases/download/v{{websocketd_version}}/{{websocketd_package}}
+osrf_git_branch: master
+eg_git_branch: master
+
+# 'no'  == build will fail on local changes
+# 'yes' == local changes will be destroyed
+force_git_checkout: no
+
+# Git clone depth.
+# Clone depth "0" means full clone. (best for development).
+# Clone depth "1" does a shallow clone, which is smaller and quicker, 
+# but does not give you the full repository history.
+osrf_clone_depth: 0
+eg_clone_depth: 0
+
+# Root directory for all OpenSRF/Evergreen install files.
+eg_install_path: /openils
+
+# XUL client server version stamp.
+# This should match the Target Server ID of the intended XUL client.
+# Note however, symlinks can be added after the fact by hand to 
+# support different XUL client versions.
+eg_stamp_id: master
+
+eg_admin_user: admin
+eg_admin_pass: demo123
+
+ejabberd_password: password
+jabber_domain: localhost
+jabber_domain_addr: 127.0.1.2
+
+# Host domain used by web clients.
+# TODO add to apache eg.conf ServerName
+web_domain: localhost
+
+# TODO add cache servers to opensrf.xml/eg_vhost.conf
+opensrf_memcached_server: ["127.0.0.1:11211"]
+
+dojo_version: 1.3.3
+dojo_url: http://download.dojotoolkit.org/release-{{dojo_version}}/dojo-release-{{dojo_version}}.tar.gz
+
+# Install and configure rsyslog for logging
+use_rsyslog: true
+
+# Install and configure NGINX proxy
+# Not this is not an Apache replacement, just a proxy.
+# It's primary benefit is allowing port 443 connections to be shared
+# between HTTPS and websockets.
+use_nginx: true
+
+# Modified programmaticlly to use 443 when nginx is enabled.
+# Defaults to OpenSRF's port 7682
+osrf_ws_port:
+
+# Settings applied to the websocketd systemd service file
+websocketd_maxforks: 250
+websocketd_loglevel: error
+websocketd_port: 7682
+# apply origin retrictions to websocketd.  If no value is specified
+# websocketd accepts connections from all origins.
+# Options include:
+#   --origin=domain[:port],origin[:port],...
+#   --sameorigin
+#websocketd_origin: --origin={{web_domain}}
+# Avoid origin restrictions by default
+websocketd_origin:
+
+# Install systemd service files and use them to stop/start services.
+# Most disabled by default since EG documentation generally refers to
+# the osrf_control script instead.
+use_service_opensrf: false
+use_service_reporter: false
+use_service_websocketd: true
+
+# Start Evergreen services when the install is complete.
+start_services: true
+
+# Database Settings --------------------------------------------------------
+install_database: true
+
+# Install Postgres 9.6 from the PG apt repository?
+use_pg_96: false
+
+database_host: 127.0.0.1
+database_port: 5432
+database_user: evergreen
+database_password: evergreen
+database_database: evergreen
+
+# Create the Evergreen schema?
+create_schema: true
+
+# set to empty value to avoid loading sample data
+# Only used when create_schema=true
+load_sample_data: --load-all-sample
+
+# Install the PGTAP extension for database unit tests?
+# Requires create_schema=true
+install_pgtap: true
+# --------------------------------------------------------------------------

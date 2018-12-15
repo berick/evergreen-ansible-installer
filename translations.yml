@@ -1,0 +1,8 @@
+# The following locales are examples
+# Edit accordingly to match requirements
+locale:
+    - ar-JO
+    - cs-CZ
+    - es-ES
+    - fr-CA
+

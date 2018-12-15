@@ -1,0 +1,44 @@
+- name: Install OpenSRF Pre-Prereqs
+  become: true
+  apt: name=make state=present
+  with_items:
+    - make
+    - git
+- name: Create opensrf user
+  become: true
+  user:
+    name: opensrf
+    shell: /bin/bash
+# Add environment changes to ~/.bashrc for consistency with OpenSRF/Evergreen
+# installtion docs and crontab examples.  Beware that ~/.bashrc is only
+# processed in certain circumstances.  This is why most EG CRONTAB examples
+# start with ". ~/.bashrc".
+#   sudo -u opensrf <command>       => ~/.bashrc
+#   sudo su opensrf                 => ~/.bashrc
+#   sudo -i -u opensrf <command>    => ~/.bash_profile
+#   sudo su -l opensrf              => ~/.bash_profile
+#   crontab user                    => ~/.bash_profile
+- name: Check export PATH for opensrf user profile
+  become: true
+  become_user: opensrf
+  lineinfile: 
+    dest: /home/opensrf/.bashrc
+    create: yes
+    owner: opensrf
+    group: opensrf
+    mode: 0644
+    regexp: '^export PATH=' 
+    line: 'export PATH="{{eg_install_path}}/bin:$PATH"'
+- name: Check LD_LIBRARY_PATH for opensrf user profile
+  become: true
+  become_user: opensrf
+  lineinfile: 
+    dest: /home/opensrf/.bashrc
+    regexp: '^export LD_LIBRARY_PATH=' 
+    line: 'export LD_LIBRARY_PATH="{{eg_install_path}}/lib:/usr/local/lib:/usr/local/lib/dbd:$LD_LIBRARY_PATH"'
+- name: Add public/private jabber hosts to /etc/hosts
+  become: true
+  lineinfile: 
+    dest: /etc/hosts
+    regexp: '^{{jabber_domain_addr}} public'
+    line: '{{jabber_domain_addr}} public.{{jabber_domain}} private.{{jabber_domain}}'

@@ -1,0 +1,8 @@
+- name: Setup OpenSRF
+  include: setup.yml
+- name: Install OpenSRF
+  include: opensrf.yml
+- name: Configure Ejabberd
+  include: ejabberd.yml
+- name: OpenSRF WebSockets
+  include: websockets.yml

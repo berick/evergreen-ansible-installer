@@ -1,0 +1,15 @@
+# OpenSRF / Evergreen Ansible Installer Playbook
+# Author: Bill Erickson <berickxx@gmail.com>
+
+- hosts: '{{hosts}}'
+  remote_user: '{{deploy_user}}'
+  become_method: sudo
+  vars_files:
+    - settings.yml
+  tasks:
+  - name: Process OpenSRF Tasks
+    include: opensrf/main.yml
+  - name: Process Evergreen Tasks
+    include: evergreen/main.yml
+  - name: Process Optional Items
+    include: extras/main.yml
