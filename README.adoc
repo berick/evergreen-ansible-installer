@@ -11,6 +11,7 @@
 [source,sh]
 ---------------------------------------------------------------------------
 # Use the latest ansible version for Ubuntu
+sudo apt-get install software-properties-common # sometimes necessary
 sudo apt-add-repository ppa:ansible/ansible
 sudo apt-get update
 sudo apt-get install git ansible
