@@ -15,7 +15,7 @@
 - block:
   - name: Add Postgresql 9.6 Apt Repository
     become: true
-    shell: add-apt-repository "deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main"
+    shell: add-apt-repository "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main"
   - name: Add Postgresql 9.6 Apt Repository Key
     become: true
     shell: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -

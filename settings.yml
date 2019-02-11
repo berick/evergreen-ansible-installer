@@ -2,10 +2,10 @@
 hosts: '127.0.0.1'
 deploy_user: opensrf
 repo_base: /home/{{deploy_user}}
-os_build_target: ubuntu-xenial 
+os_build_target: ubuntu-bionic
 osrf_git_repository: git://git.evergreen-ils.org/OpenSRF.git
 eg_git_repository: git://git.evergreen-ils.org/Evergreen.git
-websocketd_version: 0.3.0
+websocketd_version: 0.3.1
 websocketd_package: websocketd-{{websocketd_version}}-linux_amd64.zip
 websocketd_url: https://github.com/joewalnes/websocketd/releases/download/v{{websocketd_version}}/{{websocketd_package}}
 osrf_git_branch: master
