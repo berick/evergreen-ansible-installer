@@ -22,7 +22,7 @@ sudo ansible-playbook playbook.yml
 
 # Alternate example demonstrating variable overrides by installing a 
 # specific OpenSRF branch.
-# sudo ansible-playbook playbook.yml -e osrf_git_branch=rel_2_5
+# sudo ansible-playbook playbook.yml -e osrf_git_branch=rel_3_1
 
 # Install with the sample locales defined in translations.yml
 # sudo ansible-playbook playbook.yml -e translations=true
@@ -40,6 +40,8 @@ Settings are stored in settings.yml.  There are a lot of options.  Please
 review these values before installing.  Some items of note:
 
 * eg_stamp_id: XUL client server version
+ ** Deprecated.
+ ** XUL client may not successfully build for Evergreen 3.3+
 * load_sample_data: Test data is loaded into the database by default.
 * use_nginx: NGINX is installed and used by default
 
