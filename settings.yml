@@ -87,9 +87,6 @@ start_services: true
 # Database Settings --------------------------------------------------------
 install_database: true
 
-# Install Postgres 9.6 from the PG apt repository?
-use_pg_96: false
-
 database_host: 127.0.0.1
 database_port: 5432
 database_user: evergreen

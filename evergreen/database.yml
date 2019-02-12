@@ -9,38 +9,6 @@
     cd {{repo_base}}/Evergreen 
     && PERL_MM_USE_DEFAULT=1 make -f 
     Open-ILS/src/extras/Makefile.install postgres-server-{{os_build_target}}
-  when: not use_pg_96
-# When PG 9.6 is enabled, add the repository then peform the 
-# equivalent of the postgres-server-{{os_build_target}} steps.
-- block:
-  - name: Add Postgresql 9.6 Apt Repository
-    become: true
-    shell: add-apt-repository "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main"
-  - name: Add Postgresql 9.6 Apt Repository Key
-    become: true
-    shell: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
-  - name: Install Postgresql 9.6 Server
-    become: true
-    apt:
-      update_cache: yes
-      state: present
-      pkg:
-        - postgresql-9.6
-        - postgresql-contrib-9.6
-        - postgresql-plperl-9.6
-        - postgresql-server-dev-9.6
-        # Add the deps from DEB_PGSQL_COMMON_MODS
-        - gcc
-        - libbusiness-isbn-perl
-        - libjson-xs-perl
-        - liblibrary-callnumber-lc-perl
-        - libmarc-record-perl
-        - libmarc-xml-perl
-        - librose-uri-perl
-        - libuuid-tiny-perl
-        - libxml-libxml-perl
-        - libxml-libxslt-perl
-  when: use_pg_96
 - name: Start Postgres
   become: true
   service: name=postgresql state=started
