@@ -14,6 +14,12 @@
     remote_src: true
     src: "{{repo_base}}/Evergreen/Open-ILS/examples/apache_24/eg_vhost_24.conf"
     dest: /etc/apache2/eg_vhost.conf 
+- name: Configure Apache RemoteIP 
+  become: true
+  replace: 
+    dest: /etc/apache2/eg_vhost.conf
+    regexp: '^#RemoteIP'
+    replace: 'RemoteIP'
 - name: Setup eg_startup
   become: true
   copy:
