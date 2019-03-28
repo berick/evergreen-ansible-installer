@@ -53,6 +53,9 @@
 - name: Enable apache mod rewrite
   become: true
   shell: /usr/sbin/a2enmod rewrite
+- name: Enable apache mod remoteip
+  become: true
+  shell: /usr/sbin/a2enmod remoteip
 - name: Disable default site for apache
   become: true
   shell: /usr/sbin/a2dissite 000-default
