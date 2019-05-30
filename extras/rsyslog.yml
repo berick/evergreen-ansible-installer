@@ -1,13 +1,13 @@
 - name: Configure Rsyslog
   become: true
-  when: use_rsyslog
+  when: use_rsyslog | bool
   copy:
     remote_src: true
     src: "{{repo_base}}/Evergreen/Open-ILS/examples/evergreen-rsyslog.conf"
     dest: /etc/rsyslog.d/evergreen.conf
 - name: Restart Rsyslog
   become: true
-  when: use_rsyslog
+  when: use_rsyslog | bool
   service: name=rsyslog state=restarted
 - name: Update opensrf_core.xml for rsyslog
   become: true

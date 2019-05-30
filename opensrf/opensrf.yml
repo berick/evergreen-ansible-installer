@@ -17,7 +17,7 @@
 - name: Apply Proxy JS Websockets Port
   set_fact:
     osrf_ws_port: --with-websockets-port=443
-  when: use_nginx
+  when: use_nginx | bool
 - name: Build OpenSRF
   environment:
     PATH: "{{ansible_env.PATH}}:{{eg_install_path}}/bin"

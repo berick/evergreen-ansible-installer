@@ -38,7 +38,7 @@
     --database {{database_database}} 
     --admin-user {{eg_admin_user}} 
     --admin-pass {{eg_admin_pass}}
-  when: create_schema 
+  when: create_schema | bool
 - block:
   - name: Install PGTAP
     become: true
@@ -48,5 +48,5 @@
     become_user: postgres
     postgresql_ext: name=pgtap db={{database_database}}
   when: 
-    - create_schema
-    - install_pgtap
+    - create_schema | bool
+    - install_pgtap | bool
