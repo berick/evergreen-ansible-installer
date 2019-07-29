@@ -5,6 +5,9 @@
     depth: "{{eg_clone_depth}}"
     version: "{{eg_git_branch}}"
     force: "{{force_git_checkout}}"
+  become: true
+  become_user: opensrf
+  
 - name: Install Evergreen Prereqs
   become: true
   shell: >
@@ -22,3 +25,5 @@
     && autoreconf -i 
     && ./configure --prefix={{eg_install_path}} --sysconfdir={{eg_install_path}}/conf 
     && make
+  become: true
+  become_user: opensrf

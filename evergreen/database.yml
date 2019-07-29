@@ -2,7 +2,9 @@
   apt:
     pkg:
       - python-psycopg2 # required by postgresql_user
+      - python3-psycopg2
     state: present
+  become: true
 - name: Install Postgres Dependencies
   become: true
   shell: >

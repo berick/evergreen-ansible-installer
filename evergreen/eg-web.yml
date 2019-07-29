@@ -15,6 +15,8 @@
   shell: >
     cd {{repo_base}}/Evergreen/Open-ILS/web/js/ui/default/staff 
     && npm run build-prod
+  become: true
+  become_user: opensrf
 - name: AngularJS npm test
   become: true
   become_user: opensrf
@@ -23,14 +25,18 @@
   shell: >
     cd {{repo_base}}/Evergreen/Open-ILS/web/js/ui/default/staff 
     && npm run test
-- name: Angular Node Build
   become: true
   become_user: opensrf
+- name: Angular Node Build
   npm: path={{repo_base}}/Evergreen/Open-ILS/src/eg2
+  become: true
+  become_user: opensrf
 - name: Angular build
   shell: >
     cd {{repo_base}}/Evergreen/Open-ILS/src/eg2
     && ng build --prod
+  become: true
+  become_user: opensrf
 - name: Angular test
   become: true
   become_user: opensrf
@@ -39,4 +45,6 @@
   shell: >
     cd {{repo_base}}/Evergreen/Open-ILS/src/eg2
     && npm run test
+  become: true
+  become_user: opensrf
 
