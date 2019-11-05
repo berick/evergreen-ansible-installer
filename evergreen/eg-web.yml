@@ -16,6 +16,10 @@
     cd {{repo_base}}/Evergreen/Open-ILS/web/js/ui/default/staff 
     && npm run build-prod
 - name: AngularJS npm test
+  become: true
+  become_user: opensrf
+  environment:
+    CHROME_BIN: /usr/bin/chromium-browser
   shell: >
     cd {{repo_base}}/Evergreen/Open-ILS/web/js/ui/default/staff 
     && npm run test
@@ -28,6 +32,10 @@
     cd {{repo_base}}/Evergreen/Open-ILS/src/eg2
     && ng build --prod
 - name: Angular test
+  become: true
+  become_user: opensrf
+  environment:
+    CHROME_BIN: /usr/bin/chromium-browser
   shell: >
     cd {{repo_base}}/Evergreen/Open-ILS/src/eg2
     && npm run test
