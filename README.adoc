@@ -53,8 +53,9 @@ Main playbook.  It organizes the tasks.
 
 === settings.yml
 
-Installation settings.  Modify as needed or override via -e var=val 
-ansible command line option.
+Installation settings.  Modify as needed, override via -e var=val
+ansible command line option, or store multiple overrides in a file
+local_settings.yml and override via -e @local_settings.yml.
 
 === */main.yml
 
