@@ -1,7 +1,6 @@
 - name: Install Postgres Prereqs
   apt:
     pkg:
-      - python-psycopg2 # required by postgresql_user
       - python3-psycopg2
     state: present
   become: true
