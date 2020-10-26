@@ -4,7 +4,7 @@
 
 == Quick How-To
 
-1. Install Ubuntu 18.04
+1. Install Ubuntu 20.04
 2. Clone and run the Ansible playbook using an Ubuntu login which has sudo
 (but not as root).
 
@@ -15,7 +15,7 @@ sudo apt-get install software-properties-common # sometimes necessary
 sudo apt-add-repository ppa:ansible/ansible
 sudo apt-get update
 sudo apt-get install git ansible
-git clone --branch ubuntu-18.04 \
+git clone --branch ubuntu-20.04 \
     https://github.com/berick/evergreen-ansible-installer.git
 cd evergreen-ansible-installer
 sudo ansible-playbook playbook.yml
