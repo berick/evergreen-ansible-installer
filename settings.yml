@@ -11,6 +11,7 @@ websocketd_url: https://github.com/joewalnes/websocketd/releases/download/v{{web
 osrf_git_branch: master
 eg_git_branch: master
 
+perform_git_checkout: yes
 # 'no'  == build will fail on local changes
 # 'yes' == local changes will be destroyed
 force_git_checkout: no
