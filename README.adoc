@@ -11,7 +11,10 @@
 [source,sh]
 ---------------------------------------------------------------------------
 # Use the latest ansible version for Ubuntu
-sudo apt-get install ansible
+sudo apt-get install software-properties-common # sometimes necessary
+sudo apt-add-repository ppa:ansible/ansible
+sudo apt-get update
+sudo apt-get install git ansible
 git clone --branch ubuntu-20.04 \
     https://github.com/berick/evergreen-ansible-installer.git
 cd evergreen-ansible-installer
