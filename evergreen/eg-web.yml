@@ -43,4 +43,7 @@
   shell: >
     cd {{repo_base}}/Evergreen/Open-ILS/src/eg2
     && npm run test
-
+- name: BooPAC Node Build
+  npm: path={{repo_base}}/Evergreen/Open-ILS/web/opac/deps
+  become: true
+  become_user: opensrf
