@@ -44,7 +44,7 @@
 - block:
   - name: Install PGTAP
     become: true
-    apt: name=pgtap state=present
+    apt: name=postgresql-{{pg_version}}-pgtap state=present
   - name: Create PGTAP Extension
     become: true
     become_user: postgres
