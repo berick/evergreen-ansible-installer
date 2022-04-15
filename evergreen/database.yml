@@ -10,7 +10,7 @@
   shell: >
     cd {{repo_base}}/Evergreen 
     && PERL_MM_USE_DEFAULT=1 make -f 
-    Open-ILS/src/extras/Makefile.install postgres-server-{{os_build_target}}
+    Open-ILS/src/extras/Makefile.install postgres-server-{{os_build_target}}-{{pg_version}}
 - name: Start Postgres
   become: true
   service: name=postgresql state=started

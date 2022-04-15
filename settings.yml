@@ -104,4 +104,6 @@ load_sample_data: --load-all-sample
 # Install the PGTAP extension for database unit tests?
 # Requires create_schema=true
 install_pgtap: true
+
+pg_version: 14
 # --------------------------------------------------------------------------
