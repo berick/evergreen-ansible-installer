@@ -17,14 +17,14 @@
     && npm run build-prod
   become: true
   become_user: opensrf
-- name: AngularJS npm test
-  become: true
-  become_user: opensrf
-  environment:
-    CHROME_BIN: /usr/bin/chromium-browser
-  shell: >
-    cd {{repo_base}}/Evergreen/Open-ILS/web/js/ui/default/staff 
-    && npm run test
+#- name: AngularJS npm test
+#  become: true
+#  become_user: opensrf
+#  environment:
+#    CHROME_BIN: /usr/bin/chromium-browser
+#  shell: >
+#    cd {{repo_base}}/Evergreen/Open-ILS/web/js/ui/default/staff 
+#    && npm run test
 - name: Angular Node Build
   npm: path={{repo_base}}/Evergreen/Open-ILS/src/eg2
   become: true
@@ -35,14 +35,14 @@
     && ng build --prod
   become: true
   become_user: opensrf
-- name: Angular test
-  become: true
-  become_user: opensrf
-  environment:
-    CHROME_BIN: /usr/bin/chromium-browser
-  shell: >
-    cd {{repo_base}}/Evergreen/Open-ILS/src/eg2
-    && npm run test
+#- name: Angular test
+#  become: true
+#  become_user: opensrf
+#  environment:
+#    CHROME_BIN: /usr/bin/chromium-browser
+#  shell: >
+#    cd {{repo_base}}/Evergreen/Open-ILS/src/eg2
+#    && npm run test
 - name: BooPAC Node Build
   npm: path={{repo_base}}/Evergreen/Open-ILS/web/opac/deps
   become: true
