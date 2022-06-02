@@ -94,6 +94,8 @@ database_user: evergreen
 database_password: evergreen
 database_database: evergreen
 
+pg_install_target: postgres-server-ubuntu-focal-10
+
 # Create the Evergreen schema?
 create_schema: true
 
