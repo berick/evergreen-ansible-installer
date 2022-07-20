@@ -6,6 +6,7 @@ Ansible-based installer for OpenSRF and Evergreen.
 
 ## Supported Versions
 
+- [Ubuntu 22.04 (Pending OpenSRF/Evergreen Updates)](https://github.com/berick/evergreen-ansible-installer/tree/ubuntu-22.04)
 - [Ubuntu 20.04 for Evergreen 3.7 and up](https://github.com/berick/evergreen-ansible-installer/tree/ubuntu-20.04)
 - [Ubuntu 18.04 for Evergreen 3.9 and up](https://github.com/berick/evergreen-ansible-installer/tree/ubuntu-18.04-eg-3.9)
 - [Ubuntu 18.04 for Evergreen 3.2 to 3.8](https://github.com/berick/evergreen-ansible-installer/tree/ubuntu-18.04)
