@@ -42,3 +42,5 @@
     dest: /etc/hosts
     regexp: '^{{jabber_domain_addr}} public'
     line: '{{jabber_domain_addr}} public.{{jabber_domain}} private.{{jabber_domain}}'
+  when: not for_docker
+  
