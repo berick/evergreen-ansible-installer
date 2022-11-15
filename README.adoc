@@ -2,7 +2,7 @@
 :author: Bill Erickson, King County Library System
 :email: berickxx@gmail.com      
 
-== Note About Virtualized Ejabberd
+== A Warning About Virtualized Ejabberd
 
 Ejabberd fails to start in some virtualized invironments (LXD, VirtualBox, 
 Google Cloud) due to security constraints baked into its systemd service
