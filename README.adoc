@@ -37,8 +37,7 @@ sudo systemctl restart ejabberd
 
 == Quick How-To
 
-1. Install Ubuntu 22.04
-2. Clone and run the Ansible playbook using an Ubuntu login which has sudo
+Clone and run the Ansible playbook using an Ubuntu login which has sudo
 (but not as root).
 
 [source,sh]
