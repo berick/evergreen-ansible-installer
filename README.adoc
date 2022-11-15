@@ -5,7 +5,7 @@
 == Note About Virtualized Ejabberd
 
 Ejabberd fails to start in some virtualized invironments (LXD, VirtualBox, 
-Google Cloud) due to security constraints backed into its systemd service
+Google Cloud) due to security constraints baked into its systemd service
 configuration.  It's necessary to fix these issues before proceeding with
 the installer.
 
