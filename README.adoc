@@ -2,6 +2,39 @@
 :author: Bill Erickson, King County Library System
 :email: berickxx@gmail.com      
 
+== Note About Virtualized Ejabberd
+
+Ejabberd fails to start in some virtualized invironments (LXD, VirtualBox, 
+Google Cloud) due to security constraints backed into its systemd service
+configuration.  It's necessary to fix these issues before proceeding with
+the installer.
+
+[source,sh]
+---------------------------------------------------------------------------
+sudo apt install -y ejabberd
+sudo vim /lib/systemd/system/ejabberd.service
+---------------------------------------------------------------------------
+
+* Change 4 lines to look like this:
+
+[source,conf]
+---------------------------------------------------------------------------
+PrivateDevices=false
+PrivateTmp=false
+ProtectHome=false
+ProtectSystem=false
+---------------------------------------------------------------------------
+
+* Then reload systemctl
+
+[source,sh]
+---------------------------------------------------------------------------
+sudo systemctl daemon-reload                                                   
+sudo systemctl restart ejabberd
+---------------------------------------------------------------------------
+
+* Proceed with the install below...
+
 == Quick How-To
 
 1. Install Ubuntu 22.04
@@ -10,13 +43,10 @@
 
 [source,sh]
 ---------------------------------------------------------------------------
-# Use the latest ansible version for Ubuntu
-sudo apt-get install software-properties-common # sometimes necessary
-sudo apt-add-repository ppa:ansible/ansible
-sudo apt-get update
-sudo apt-get install git ansible
-git clone --branch ubuntu-22.04 \
-    https://github.com/berick/evergreen-ansible-installer.git
+sudo apt install -y software-properties-common # sometimes necessary
+sudo apt update -y
+sudo apt install -y git ansible
+git clone --branch ubuntu-22.04 https://github.com/berick/evergreen-ansible-installer.git
 cd evergreen-ansible-installer
 sudo ansible-playbook playbook.yml
 
