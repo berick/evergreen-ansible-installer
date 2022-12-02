@@ -1,9 +1,9 @@
 - name: Install OpenSRF Pre-Prereqs
   become: true
-  apt: name=make state=present
-  with_items:
-    - make
-    - git
+  apt: 
+    name: make 
+    state: present
+    update_cache: true
 - name: Create opensrf user
   become: true
   user:
