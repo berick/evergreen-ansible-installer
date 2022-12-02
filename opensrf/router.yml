@@ -1,0 +1,17 @@
+- name: Install OpenSRF Router Pre-Prereqs
+  become: true
+  apt: name=make state=present
+  with_items:
+    - rust-all
+    - git
+name: Checkout OpenSRF Router Repository
+  git:
+    repo: "{{osrf_router_git_repository}}"
+    dest: "{{repo_base}}/opensrf-rs"
+    depth: "{{osrf_router_clone_depth}}"
+    version: "{{osrf_router_git_branch}}"
+    force: "{{force_git_checkout}}"
+  when: perform_git_checkout
+- name: Build And Install OpenSRF Router
+  become: true
+  shell: cargo install --bin router --root {{eg_install_path}} --path {{repo_base}}/opensrf-rs

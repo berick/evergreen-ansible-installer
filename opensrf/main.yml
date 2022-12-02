@@ -1,5 +1,7 @@
 - name: Setup OpenSRF
   include: setup.yml
+- name: Install OpenSRF Router
+  include: router.yml
 - name: Install OpenSRF
   include: opensrf.yml
 - name: Configure Redis

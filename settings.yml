@@ -13,8 +13,10 @@ websocketd_url: https://github.com/joewalnes/websocketd/releases/download/v{{web
 #eg_git_branch: master
 
 # TEMP use working branch
-osrf_git_repository: https://github.com/berick/OpenSRF.git
-eg_git_repository: https://github.com/berick/Evergreen.git
+osrf_router_git_repository: https://github.com/berick/opensrf-rs
+osrf_router_git_branch: main
+osrf_git_repository: https://github.com/berick/OpenSRF
+eg_git_repository: https://github.com/berick/Evergreen
 osrf_git_branch: user/berick/lpxxx-opensrf-over-redis-v2
 eg_git_branch: user/berick/lpxxx-opensrf-over-redis-v1
 
@@ -27,6 +29,7 @@ force_git_checkout: no
 # Clone depth "0" means full clone. (best for development).
 # Clone depth "1" does a shallow clone, which is smaller and quicker, 
 # but does not give you the full repository history.
+osrf_router_clone_depth: 0
 osrf_clone_depth: 0
 eg_clone_depth: 0
 
