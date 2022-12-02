@@ -1,6 +1,7 @@
 - name: Starting OpenSRF Router
-  become: true
-  shell: systemctl restart opensrf-router
+  systemd:
+    name: opensrf-router
+    state: restarted
 - name: Reset Bus Accounts
   become: true
   become_user: opensrf
@@ -15,9 +16,9 @@
   shell: osrf_control --localhost --restart-all
   when: not use_service_opensrf | bool
 - name: Starting Services (systemd)
-  become: true
-# NOTE: ansible 2.2 adds a service: use=systemd flag
-  shell: systemctl restart opensrf.service
+  systemd:
+    name: opensrf.service
+    state: restarted
   when: use_service_opensrf | bool
 - name: Giving Services Time To Start...
   pause: seconds=10
@@ -31,6 +32,7 @@
   become: true
   service: name=apache2 state=restarted
 - name: Starting Websockets
-  become: true
-  shell: systemctl restart websocketd-osrf
+  systemd:
+    name: websocketd-osrf
+    state: restarted
   when: use_service_websocketd | bool

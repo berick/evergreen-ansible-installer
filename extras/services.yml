@@ -34,21 +34,21 @@
     mode: 0644
   when: use_service_reporter | bool
 - name: Reload Systemd Configs
-  become: true
-  shell: systemctl daemon-reload
-- name: Enable OpenSRF Router Service
-  become: true
-  shell: systemctl enable opensrf-router
+  systemd:
+    daemon_reload: true
 - name: Enable OpenSRF Service
-  become: true
-  shell: systemctl enable opensrf
+  systemd:
+    name: opensrf
+    state: enabled
   when: use_service_opensrf | bool
 - name: Enable OpenSRF Websocketd Service
-  become: true
-  shell: systemctl enable websocketd-osrf
+  systemd:
+    name: websocketd-osrf
+    state: enabled
   when: use_service_websocketd | bool
 - name: Enable Evergreen Reporter Service
-  become: true
-  shell: systemctl enable evergreen-reporter
+  systemd:
+    name: evergreen-reporter
+    state: enabled
   when: use_service_reporter | bool
 

@@ -2,39 +2,6 @@
 :author: Bill Erickson, King County Library System
 :email: berickxx@gmail.com      
 
-== A Warning About Virtualized Ejabberd
-
-Ejabberd fails to start in some virtualized invironments (LXD, VirtualBox, 
-Google Cloud) due to security constraints baked into its systemd service
-configuration.  It's necessary to fix these issues before proceeding with
-the installer.
-
-[source,sh]
----------------------------------------------------------------------------
-sudo apt install -y ejabberd
-sudo vim /lib/systemd/system/ejabberd.service
----------------------------------------------------------------------------
-
-* Change 4 lines to look like this:
-
-[source,conf]
----------------------------------------------------------------------------
-PrivateDevices=false
-PrivateTmp=false
-ProtectHome=false
-ProtectSystem=false
----------------------------------------------------------------------------
-
-* Then reload systemctl
-
-[source,sh]
----------------------------------------------------------------------------
-sudo systemctl daemon-reload                                                   
-sudo systemctl restart ejabberd
----------------------------------------------------------------------------
-
-* Proceed with the install below...
-
 == Quick How-To
 
 Clone and run the Ansible playbook using an Ubuntu login which has sudo
