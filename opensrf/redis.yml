@@ -2,8 +2,16 @@
   become: true
   lineinfile: 
     dest: /etc/redis/redis.conf
-    regexp: '^# save=""'
-    line: 'save=""'
+    regexp: '^#?\s*save ""'
+    line: 'save ""'
 - name: Restart Redis
   become: true
   service: name=redis-server state=restarted
+- name: Setup redis-account File
+  become: true
+  copy:
+    remote_src: true
+    src: "{{eg_install_path}}/conf/redis-accounts.example.txt"
+    dest: "{{eg_install_path}}/conf/redis-accounts.txt"
+    force: no
+

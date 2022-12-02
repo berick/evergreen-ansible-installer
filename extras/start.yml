@@ -1,6 +1,12 @@
 - name: Starting OpenSRF Router
   become: true
   shell: systemctl restart opensrf-router
+- name: Reset Bus Accounts
+  become: true
+  become_user: opensrf
+  environment:
+    PATH: "{{ansible_env.PATH}}:{{eg_install_path}}/bin"
+  shell: osrf_control --localhost --reset-message-bus
 - name: Starting Services
   become: true
   become_user: opensrf

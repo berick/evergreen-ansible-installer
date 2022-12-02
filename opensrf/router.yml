@@ -4,13 +4,15 @@
   with_items:
     - rust-all
     - git
-name: Checkout OpenSRF Router Repository
+- name: Checkout OpenSRF Router Repository
   git:
     repo: "{{osrf_router_git_repository}}"
     dest: "{{repo_base}}/opensrf-rs"
     depth: "{{osrf_router_clone_depth}}"
     version: "{{osrf_router_git_branch}}"
     force: "{{force_git_checkout}}"
+  become: true
+  become_user: opensrf
   when: perform_git_checkout
 - name: Build And Install OpenSRF Router
   become: true

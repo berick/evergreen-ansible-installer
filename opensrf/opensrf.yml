@@ -8,7 +8,6 @@
   become: true
   become_user: opensrf
   when: perform_git_checkout
-
 - name: Install OpenSRF Prereqs
   become: true
   shell: >
