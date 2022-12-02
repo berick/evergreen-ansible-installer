@@ -1,7 +1,7 @@
 # Apache
 - name: Stop Apache2
   become: true
-  service: name=apache2 state=stopped
+  systemd: name=apache2 state=stopped
 - name: Setup eg.conf
   become: true
   copy:

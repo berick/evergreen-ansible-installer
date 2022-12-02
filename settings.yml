@@ -3,13 +3,17 @@ hosts: '127.0.0.1'
 deploy_user: opensrf
 repo_base: /home/{{deploy_user}}
 os_build_target: ubuntu-jammy
-osrf_git_repository: git://git.evergreen-ils.org/OpenSRF.git
+
+# TODO go back to main repo
+osrf_git_repository: git://git.evergreen-ils.org/working/OpenSRF.git
 eg_git_repository: git://git.evergreen-ils.org/Evergreen.git
+# TODO go back to main branch
+osrf_git_branch: collab/berick/lp2017941-opensrf-on-redis-v5
+eg_git_branch: main
+
 websocketd_version: 0.4.1
 websocketd_package: websocketd-{{websocketd_version}}-linux_amd64.zip
 websocketd_url: https://github.com/joewalnes/websocketd/releases/download/v{{websocketd_version}}/{{websocketd_package}}
-osrf_git_branch: master
-eg_git_branch: master
 
 perform_git_checkout: yes
 # 'no'  == build will fail on local changes
@@ -35,9 +39,8 @@ eg_stamp_id: master
 eg_admin_user: admin
 eg_admin_pass: demo123
 
-ejabberd_password: password
-jabber_domain: localhost
-jabber_domain_addr: 127.0.1.2
+base_domain: localhost
+base_domain_addr: 127.0.0.1
 
 # Host domain used by web clients.
 # TODO add to apache eg.conf ServerName
@@ -75,12 +78,14 @@ websocketd_port: 7682
 # Avoid origin restrictions by default
 websocketd_origin:
 
+# Settings applied to the websockets systemd service file
+websockets_max_clients: 250
+
 # Install systemd service files and use them to stop/start services.
 # Most disabled by default since EG documentation generally refers to
 # the osrf_control script instead.
 use_service_opensrf: false
 use_service_reporter: false
-use_service_websocketd: true
 
 # Start Evergreen services when the install is complete.
 start_services: true

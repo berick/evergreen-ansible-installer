@@ -64,3 +64,37 @@
 - name: Run ldconfig
   become: true
   shell: ldconfig
+
+# Ejabberd is currently enabled by default in opensrf_core.xml.
+# Modify the file to use Redis configs instead.
+- name: Redis Ports
+  replace:
+    path: "{{eg_install_path}}/conf/opensrf_core.xml"
+    regexp: '<port>5222</port>'
+    replace: '<port>6379</port>'
+- name: Redis Passwords
+  replace:
+    path: "{{eg_install_path}}/conf/opensrf_core.xml"
+    regexp: '<passwd>password</passwd>'
+    replace: '<!--<passwd>password</passwd>-->'
+- name: Redis Passwords
+  replace:
+    # e.g. 456fc340-beba-4489-9070-0d6b49e9952b
+    path: "{{eg_install_path}}/conf/opensrf_core.xml"
+    regexp: '<passwd>([\w\-]{36})</passwd>'
+    replace: '--><passwd>\1</passwd><!--'
+- name: Redis Passwords
+  replace:
+    path: "{{eg_install_path}}/conf/opensrf_core.xml"
+    regexp: '<password>password</password>'
+    replace: '<!--<password>password</password>-->'
+- name: Redis Passwords
+  replace:
+    path: "{{eg_install_path}}/conf/opensrf_core.xml"
+    regexp: '<password>([\w\-]{36})</password>'
+    replace: '--><password>\1</password><!--'
+- name: Redis Gateway Username
+  replace:
+    path: "{{eg_install_path}}/conf/opensrf_core.xml"
+    regexp: '\s+ </services>\n\s*\n\s+<!-- Ejabberd -->\n\s*<username>opensrf</username>'
+    replace: '\n    </services>\n    <username>gateway</username>\n'

@@ -8,7 +8,7 @@
 - name: Restart Rsyslog
   become: true
   when: use_rsyslog | bool
-  service: name=rsyslog state=restarted
+  systemd: name=rsyslog state=restarted
 - name: Update opensrf_core.xml for rsyslog
   become: true
   become_user: opensrf
