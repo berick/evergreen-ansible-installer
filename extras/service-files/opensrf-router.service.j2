@@ -1,0 +1,10 @@
+[Unit]
+Description=OpenSRF Router
+
+[Service]
+Type=simple
+User=opensrf
+Group=opensrf
+Environment=PATH=/openils/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+Environment=LD_LIBRARY_PATH=/openils/lib:/usr/local/lib:/usr/local/lib/dbd:$LD_LIBRARY_PATH
+ExecStart=/openils/bin/router

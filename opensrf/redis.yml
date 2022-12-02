@@ -1,0 +1,9 @@
+- name: Disable Redis Persistence
+  become: true
+  lineinfile: 
+    dest: /etc/redis/redis.conf
+    regexp: '^# save=""'
+    line: 'save=""'
+- name: Restart Redis
+  become: true
+  service: name=redis-server state=restarted

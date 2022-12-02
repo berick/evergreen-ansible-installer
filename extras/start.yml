@@ -1,3 +1,6 @@
+- name: Starting OpenSRF Router
+  become: true
+  shell: systemctl restart opensrf-router
 - name: Starting Services
   become: true
   become_user: opensrf
