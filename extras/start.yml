@@ -30,7 +30,9 @@
   shell: autogen.sh
 - name: Restarting Apache
   become: true
-  service: name=apache2 state=restarted
+  systemd:
+    name: apache2 
+    state: restarted
 - name: Starting Websockets
   systemd:
     name: websocketd-osrf

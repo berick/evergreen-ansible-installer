@@ -6,7 +6,7 @@
     line: 'save ""'
 - name: Restart Redis
   become: true
-  service: name=redis-server state=restarted
+  systemd: name=redis-server state=restarted
 - name: Setup redis-account File
   become: true
   copy:

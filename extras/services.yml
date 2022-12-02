@@ -39,16 +39,16 @@
 - name: Enable OpenSRF Service
   systemd:
     name: opensrf
-    state: enabled
+    enabled: true
   when: use_service_opensrf | bool
 - name: Enable OpenSRF Websocketd Service
   systemd:
     name: websocketd-osrf
-    state: enabled
+    enabled: true
   when: use_service_websocketd | bool
 - name: Enable Evergreen Reporter Service
   systemd:
     name: evergreen-reporter
-    state: enabled
+    enabled: true
   when: use_service_reporter | bool
 
