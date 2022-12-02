@@ -9,13 +9,12 @@
   when: use_service_opensrf | bool
 - name: Install OpenSRF Websocketd Service File
   become: true
-  template: 
+  template:
     src: extras/service-files/websocketd-osrf.service.j2
     dest: /lib/systemd/system/websocketd-osrf.service
     owner: root
     group: root
     mode: 0644
-  when: use_service_websocketd | bool
 - name: Install Evergreen Reporter Service File
   become: true
   template: 
@@ -26,18 +25,17 @@
     mode: 0644
   when: use_service_reporter | bool
 - name: Reload Systemd Configs
-  become: true
-  shell: systemctl daemon-reload
+  systemd:
+    daemon_reload: true
 - name: Enable OpenSRF Service
-  become: true
-  shell: systemctl enable opensrf
+  systemd:
+    name: opensrf
+    enabled: true
   when: use_service_opensrf | bool
 - name: Enable OpenSRF Websocketd Service
   become: true
   shell: systemctl enable websocketd-osrf
-  when: use_service_websocketd | bool
 - name: Enable Evergreen Reporter Service
   become: true
   shell: systemctl enable evergreen-reporter
   when: use_service_reporter | bool
-

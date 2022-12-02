@@ -24,12 +24,12 @@
     dest: /etc/apache2/sites-available/eg.conf
     regexp: 'VirtualHost \*:443'
     replace: 'VirtualHost *:7443'
-- name: Restart Apache With New Ports
-  become: true
-  service: name=apache2 state=restarted
 - name: Install Nginx Prereqs
   become: true
   apt: name=nginx state=present
+- name: Stop NGINX
+  become: true
+  systemd: name=nginx state=stopped
 - name: Install apache module rpaf
   become: true
   apt: name=libapache2-mod-rpaf state=present
@@ -45,27 +45,24 @@
     state: link
     src: /etc/nginx/sites-available/osrf-ws-http-proxy
     dest: /etc/nginx/sites-enabled/osrf-ws-http-proxy
-- name: Change NGINX Config to support websocketd (set proxy_pass)
+- name: Change NGINX Config to support websockets (set proxy_pass)
   become: true
   replace:
     dest: /etc/nginx/sites-available/osrf-ws-http-proxy
     regexp: 'proxy_pass https://localhost:7682;'
     replace: 'proxy_pass http://localhost:7682;'
-  when: use_service_websocketd | bool
-- name: Change NGINX Config to support websocketd (set proxy_send_timeout)
+- name: Change NGINX Config to support websockets (set proxy_send_timeout)
   become: true
   replace:
     dest: /etc/nginx/sites-available/osrf-ws-http-proxy
     regexp: 'proxy_send_timeout 1h;'
     replace: 'proxy_send_timeout 5m;'
-  when: use_service_websocketd | bool
-- name: Change NGINX Config to support websocketd (set proxy_read_timeout)
+- name: Change NGINX Config to support websockets (set proxy_read_timeout)
   become: true
   replace:
     dest: /etc/nginx/sites-available/osrf-ws-http-proxy
     regexp: 'proxy_read_timeout 1h;'
     replace: 'proxy_read_timeout 5m;'
-  when: use_service_websocketd | bool
 - name: Remove Default NGINX Site
   become: true
   file:
@@ -74,8 +71,3 @@
 - name: Generate NGINX ssl_dhparam key
   become: true
   shell: openssl dhparam -out /etc/apache2/ssl/dhparam.pem 2048
-- name: Restart NGINX With New Config
-  become: true
-  service: name=nginx state=restarted
-
-

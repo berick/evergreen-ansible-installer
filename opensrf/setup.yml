@@ -1,9 +1,9 @@
 - name: Install OpenSRF Pre-Prereqs
   become: true
-  apt: name=make state=present
-  with_items:
-    - make
-    - git
+  apt: 
+    name: make 
+    state: present
+    update_cache: true
 - name: Create opensrf user
   become: true
   user:
@@ -36,9 +36,9 @@
     dest: /home/opensrf/.bashrc
     regexp: '^export LD_LIBRARY_PATH=' 
     line: 'export LD_LIBRARY_PATH="{{eg_install_path}}/lib:/usr/local/lib:/usr/local/lib/dbd:$LD_LIBRARY_PATH"'
-- name: Add public/private jabber hosts to /etc/hosts
+- name: Add public/private hosts to /etc/hosts
   become: true
   lineinfile: 
     dest: /etc/hosts
-    regexp: '^{{jabber_domain_addr}} public'
-    line: '{{jabber_domain_addr}} public.{{jabber_domain}} private.{{jabber_domain}}'
+    regexp: '^{{base_domain_addr}} public'
+    line: '{{base_domain_addr}} public.{{base_domain}} private.{{base_domain}}'
