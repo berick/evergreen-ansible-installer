@@ -12,7 +12,7 @@ Clone and run the Ansible playbook using an Ubuntu login which has sudo
 sudo apt install -y software-properties-common # sometimes necessary
 sudo apt update -y
 sudo apt install -y git ansible
-git clone --branch ubuntu-22.04 https://github.com/berick/evergreen-ansible-installer.git
+git clone --branch working/ubuntu-22.04-redis https://github.com/berick/evergreen-ansible-installer.git
 cd evergreen-ansible-installer
 sudo ansible-playbook playbook.yml
 
