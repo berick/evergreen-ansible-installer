@@ -4,6 +4,8 @@
 
 == Quick How-To
 
+=== Run the Installer
+
 Clone and run the Ansible playbook using an Ubuntu login which has sudo
 (but not as root).
 
@@ -15,7 +17,12 @@ cd evergreen-ansible-installer
 sudo ansible-playbook playbook.yml
 ---------------------------------------------------------------------------
 
-=== Other Examples
+=== Open the Browser Client
+
+In Chrome/FF navigate to https://<HOSTNAME>/eg/staff/ and click 
+through the SSL warning to access the staff client.
+
+=== Other Installer Examples
 
 [source,sh]
 ---------------------------------------------------------------------------
@@ -29,9 +36,6 @@ sudo ansible-playbook playbook.yml -e translations=true
 # Install with a different deployment user (named 'deploy') on a remote machine
 sudo ansible-playbook playbook.yml -e hosts=other.example.org -e deploy_user=deploy
 ---------------------------------------------------------------------------
-
-3. In Chrome/FF navigate to https://<HOSTNAME>/eg/staff/ and click 
-   through the SSL warning to access the staff client.
 
 == Settings
 
