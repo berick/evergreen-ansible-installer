@@ -9,22 +9,25 @@ Clone and run the Ansible playbook using an Ubuntu login which has sudo
 
 [source,sh]
 ---------------------------------------------------------------------------
-sudo apt install -y software-properties-common # sometimes necessary
-sudo apt update -y
 sudo apt install -y git ansible
 git clone --branch working/ubuntu-22.04-redis https://github.com/berick/evergreen-ansible-installer.git
 cd evergreen-ansible-installer
 sudo ansible-playbook playbook.yml
+---------------------------------------------------------------------------
 
+=== Other Examples
+
+[source,sh]
+---------------------------------------------------------------------------
 # Alternate example demonstrating variable overrides by installing a 
 # specific OpenSRF branch.
-# sudo ansible-playbook playbook.yml -e osrf_git_branch=rel_3_1
+sudo ansible-playbook playbook.yml -e osrf_git_branch=rel_3_1
 
 # Install with the sample locales defined in translations.yml
-# sudo ansible-playbook playbook.yml -e translations=true
+sudo ansible-playbook playbook.yml -e translations=true
 
 # Install with a different deployment user (named 'deploy') on a remote machine
-# sudo ansible-playbook playbook.yml -e hosts=other.example.org -e deploy_user=deploy
+sudo ansible-playbook playbook.yml -e hosts=other.example.org -e deploy_user=deploy
 ---------------------------------------------------------------------------
 
 3. In Chrome/FF navigate to https://<HOSTNAME>/eg/staff/ and click 
