@@ -23,7 +23,6 @@
     owner: root
     group: root
     mode: 0644
-  when: use_service_websocketd | bool
 - name: Install Evergreen Reporter Service File
   become: true
   template: 
@@ -45,7 +44,6 @@
   systemd:
     name: websocketd-osrf
     enabled: true
-  when: use_service_websocketd | bool
 - name: Enable Evergreen Reporter Service
   systemd:
     name: evergreen-reporter

@@ -90,7 +90,6 @@ websocketd_origin:
 # the osrf_control script instead.
 use_service_opensrf: false
 use_service_reporter: false
-use_service_websocketd: true
 
 # Start Evergreen services when the install is complete.
 start_services: true
