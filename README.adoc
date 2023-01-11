@@ -11,6 +11,7 @@ the installer.
 
 [source,sh]
 ---------------------------------------------------------------------------
+sudo apt update
 sudo apt install -y ejabberd
 sudo vim /lib/systemd/system/ejabberd.service
 ---------------------------------------------------------------------------
