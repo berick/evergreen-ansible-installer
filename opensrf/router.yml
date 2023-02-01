@@ -7,7 +7,7 @@
 - name: Checkout OpenSRF Router Repository
   git:
     repo: "{{osrf_router_git_repository}}"
-    dest: "{{repo_base}}/opensrf-rs"
+    dest: "{{repo_base}}/evergreen-universe-rs"
     depth: "{{osrf_router_clone_depth}}"
     version: "{{osrf_router_git_branch}}"
     force: "{{force_git_checkout}}"
@@ -16,4 +16,4 @@
   when: perform_git_checkout
 - name: Build And Install OpenSRF Router
   become: true
-  shell: cargo install --bin router --root {{eg_install_path}} --path {{repo_base}}/opensrf-rs
+  shell: cargo install --bin osrf-router --root {{eg_install_path}} --path {{repo_base}}/evergreen-universe-rs/opensrf

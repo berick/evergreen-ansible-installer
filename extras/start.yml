@@ -37,4 +37,3 @@
   systemd:
     name: websocketd-osrf
     state: restarted
-  when: use_service_websocketd | bool

@@ -13,7 +13,7 @@ websocketd_url: https://github.com/joewalnes/websocketd/releases/download/v{{web
 #eg_git_branch: master
 
 # TEMP use working branch
-osrf_router_git_repository: https://github.com/berick/opensrf-rs
+osrf_router_git_repository: https://github.com/kcls/evergreen-universe-rs
 osrf_router_git_branch: main
 osrf_git_repository: https://github.com/berick/OpenSRF
 eg_git_repository: https://github.com/berick/Evergreen
