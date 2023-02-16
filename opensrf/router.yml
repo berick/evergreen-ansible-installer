@@ -1,9 +1,7 @@
 - name: Install OpenSRF Router Pre-Prereqs
-  apt: 
-    state: present
-    name:
-      - rust-all
-      - cargo
+  shell: curl https://sh.rustup.rs -sSf | sh -s -- -y
+  become: true
+  become_user: opensrf
 - name: Checkout OpenSRF Router Repository
   git:
     repo: "{{osrf_router_git_repository}}"
@@ -15,5 +13,8 @@
   become_user: opensrf
   when: perform_git_checkout
 - name: Build And Install OpenSRF Router
-  become: true
+  environment:
+    PATH: /home/opensrf/.cargo/bin:{{ ansible_env.PATH }}
   shell: cargo install --bin osrf-router --root {{eg_install_path}} --path {{repo_base}}/evergreen-universe-rs/opensrf
+  become: true
+  become_user: opensrf
