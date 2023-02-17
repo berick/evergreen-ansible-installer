@@ -45,9 +45,8 @@ eg_stamp_id: master
 eg_admin_user: admin
 eg_admin_pass: demo123
 
-ejabberd_password: password
-jabber_domain: localhost
-jabber_domain_addr: 127.0.0.1
+base_domain: localhost
+base_domain_addr: 127.0.0.1
 
 # Host domain used by web clients.
 # TODO add to apache eg.conf ServerName
