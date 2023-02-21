@@ -1,6 +1,6 @@
 - name: Build And Install OpenSRF Websockets
   environment:
     PATH: /home/opensrf/.cargo/bin:{{ ansible_env.PATH }}
-  shell: cargo install --bin opensrf-websockets --root {{eg_install_path}} --path {{repo_base}}/evergreen-universe-rs/opensrf
+  shell: cargo install --package opensrf --bin opensrf-websockets --root {{eg_install_path}} --path {{repo_base}}/evergreen-universe-rs/opensrf
   become: true
   become_user: opensrf
