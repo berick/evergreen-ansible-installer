@@ -1,3 +1,6 @@
+- name: Install Libssl-dev
+  become: true
+  apt: name=libssl-dev state=present
 - name: Install OpenSRF Rust Environment
   shell: curl https://sh.rustup.rs -sSf | sh -s -- -y
   become: true
