@@ -15,11 +15,11 @@
     group: root
     mode: 0644
   when: use_service_opensrf | bool
-- name: Install OpenSRF Websocketd Service File
+- name: Install OpenSRF Websockets Service File
   become: true
   template: 
-    src: extras/service-files/websocketd-osrf.service.j2
-    dest: /lib/systemd/system/websocketd-osrf.service
+    src: extras/service-files/opensrf-websockets.service.j2
+    dest: /lib/systemd/system/opensrf-websockets.service
     owner: root
     group: root
     mode: 0644
@@ -40,9 +40,9 @@
     name: opensrf
     enabled: true
   when: use_service_opensrf | bool
-- name: Enable OpenSRF Websocketd Service
+- name: Enable OpenSRF Websockets Service
   systemd:
-    name: websocketd-osrf
+    name: opensrf-websockets
     enabled: true
 - name: Enable Evergreen Reporter Service
   systemd:

@@ -3,9 +3,6 @@ hosts: '127.0.0.1'
 deploy_user: opensrf
 repo_base: /home/{{deploy_user}}
 os_build_target: ubuntu-jammy
-websocketd_version: 0.4.1
-websocketd_package: websocketd-{{websocketd_version}}-linux_amd64.zip
-websocketd_url: https://github.com/joewalnes/websocketd/releases/download/v{{websocketd_version}}/{{websocketd_package}}
 
 #osrf_git_repository: git://git.evergreen-ils.org/OpenSRF.git
 #eg_git_repository: git://git.evergreen-ils.org/Evergreen.git
@@ -71,18 +68,8 @@ use_nginx: true
 # Defaults to OpenSRF's port 7682
 osrf_ws_port:
 
-# Settings applied to the websocketd systemd service file
-websocketd_maxforks: 250
-websocketd_loglevel: error
-websocketd_port: 7682
-# apply origin retrictions to websocketd.  If no value is specified
-# websocketd accepts connections from all origins.
-# Options include:
-#   --origin=domain[:port],origin[:port],...
-#   --sameorigin
-#websocketd_origin: --origin={{web_domain}}
-# Avoid origin restrictions by default
-websocketd_origin:
+# Settings applied to the websockets systemd service file
+websockets_max_clients: 250
 
 # Install systemd service files and use them to stop/start services.
 # Most disabled by default since EG documentation generally refers to

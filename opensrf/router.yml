@@ -15,6 +15,6 @@
 - name: Build And Install OpenSRF Router
   environment:
     PATH: /home/opensrf/.cargo/bin:{{ ansible_env.PATH }}
-  shell: cargo install --bin osrf-router --root {{eg_install_path}} --path {{repo_base}}/evergreen-universe-rs/opensrf
+  shell: cargo install --bin opensrf-router --root {{eg_install_path}} --path {{repo_base}}/evergreen-universe-rs/opensrf
   become: true
   become_user: opensrf

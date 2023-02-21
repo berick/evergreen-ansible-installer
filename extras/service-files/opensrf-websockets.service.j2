@@ -1,0 +1,8 @@
+[Unit]
+Description=OpenSRF Websockets
+
+[Service]
+Type=simple
+User=opensrf
+Group=opensrf
+ExecStart=/openils/bin/opensrf-websockets --max-clients {{websockets_max_clients}}
