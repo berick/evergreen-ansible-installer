@@ -5,6 +5,4 @@
 - name: Configure Redis
   include: redis.yml
 - name: Install OpenSRF Router
-  include: router.yml
-- name: OpenSRF WebSockets
-  include: websockets.yml
+  include: rust.yml

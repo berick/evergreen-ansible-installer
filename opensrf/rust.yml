@@ -18,15 +18,9 @@
 - name: Download and Build OpenSRF Rust (may take a few mins)
   environment:
     PATH: /home/opensrf/.cargo/bin:{{ ansible_env.PATH }}
-  shell: cd {{repo_base}}/evergreen-universe-rs && cargo build --package opensrf --release
+  shell: cd {{repo_base}}/evergreen-universe-rs && make opensrf-release
   become: true
   become_user: opensrf
-- name: Install OpenSRF Router
-  copy:
-    src: "{{repo_base}}/evergreen-universe-rs/target/release/opensrf-router"
-    dest: "{{eg_install_path}}/bin/opensrf-router"
-    owner: opensrf
-    group: opensrf
-    mode: '0700'
+- name: Install OpenSRF Rust Components (Router, Websockets)
+  shell: cd {{repo_base}}/evergreen-universe-rs && make install-opensrf-release
   become: true
-  become_user: opensrf
