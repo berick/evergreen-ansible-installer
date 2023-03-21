@@ -18,7 +18,7 @@
 - name: Download and Build OpenSRF Rust (may take a few mins)
   environment:
     PATH: /home/opensrf/.cargo/bin:{{ ansible_env.PATH }}
-  shell: cd {{repo_base}}/evergreen-universe-rs && make opensrf-release
+  shell: cd {{repo_base}}/evergreen-universe-rs && make build-opensrf-release
   become: true
   become_user: opensrf
 - name: Install OpenSRF Rust Components (Router, Websockets)
