@@ -1,11 +1,11 @@
 - name: Install Libssl-dev
   become: true
   apt: name=libssl-dev state=present
-- name: Install OpenSRF Rust Environment
+- name: Setup Rust Environment
   shell: curl https://sh.rustup.rs -sSf | sh -s -- -y
   become: true
   become_user: opensrf
-- name: Checkout OpenSRF Rust Repository
+- name: Checkout Rust Repository
   git:
     repo: "{{osrf_router_git_repository}}"
     dest: "{{repo_base}}/evergreen-universe-rs"
@@ -15,7 +15,7 @@
   become: true
   become_user: opensrf
   when: perform_git_checkout
-- name: Download and Build OpenSRF Rust (may take a few mins)
+- name: Download and Build OpenSRF Rust Components (may take a few mins)
   environment:
     PATH: /home/opensrf/.cargo/bin:{{ ansible_env.PATH }}
   shell: cd {{repo_base}}/evergreen-universe-rs && make build-opensrf-release
