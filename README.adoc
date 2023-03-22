@@ -22,28 +22,12 @@ sudo ansible-playbook playbook.yml
 In Chrome/FF navigate to https://<HOSTNAME>/eg/staff/ and click 
 through the SSL warning to access the staff client.
 
-=== Other Installer Examples
-
-[source,sh]
----------------------------------------------------------------------------
-# Alternate example demonstrating variable overrides by installing a 
-# specific OpenSRF branch.
-sudo ansible-playbook playbook.yml -e osrf_git_branch=rel_3_1
-
-# Install with the sample locales defined in translations.yml
-sudo ansible-playbook playbook.yml -e translations=true
-
-# Install with a different deployment user (named 'deploy') on a remote machine
-sudo ansible-playbook playbook.yml -e hosts=other.example.org -e deploy_user=deploy
----------------------------------------------------------------------------
-
 == Settings
 
 Settings are stored in settings.yml.  There are a lot of options.  Please
 review these values before installing.  Some items of note:
 
 * load_sample_data: Test data is loaded into the database by default.
-* use_nginx: NGINX is installed and used by default
 
 == File Structure
 
