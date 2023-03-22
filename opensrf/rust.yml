@@ -1,11 +1,10 @@
-- name: Install Libssl-dev
-  become: true
-  apt: name=libssl-dev state=present
 - name: Setup Rust Environment
-  shell: curl https://sh.rustup.rs -sSf | sh -s -- -y
   become: true
-  become_user: opensrf
-- name: Checkout Rust Repository
+  apt: 
+    pkg: 
+      - libssl-dev
+      - rust-all
+- name: Checkout OpenSRF Rust Repository
   git:
     repo: "{{osrf_router_git_repository}}"
     dest: "{{repo_base}}/evergreen-universe-rs"
