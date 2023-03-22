@@ -15,7 +15,7 @@ osrf_router_git_branch: main
 osrf_git_repository: https://github.com/berick/OpenSRF
 eg_git_repository: https://github.com/berick/Evergreen
 osrf_git_branch: user/berick/lpxxx-opensrf-over-redis-v2
-eg_git_branch: user/berick/lpxxx-opensrf-over-redis-v1
+eg_git_branch: user/berick/lpxxx-opensrf-over-redis-v2
 
 perform_git_checkout: yes
 # 'no'  == build will fail on local changes
