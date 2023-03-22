@@ -4,6 +4,10 @@ Ansible-based installer for OpenSRF and Evergreen.
 1. Select an OS target branch
 2. Follow instructions for README of the selected target.
 
+## Experimental Versions
+
+- [Ubuntu 22.04 / Evergreen 3.10 / OpenSRF Redis](https://github.com/berick/evergreen-ansible-installer/tree/working/ubuntu-22.04-redis)
+
 ## Supported Versions
 
 - [Ubuntu 22.04 for Evergreen 3.10 and up](https://github.com/berick/evergreen-ansible-installer/tree/ubuntu-22.04)
