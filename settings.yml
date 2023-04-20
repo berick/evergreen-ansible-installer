@@ -12,10 +12,10 @@ os_build_target: ubuntu-jammy
 # TEMP use working branch
 osrf_router_git_repository: https://github.com/kcls/evergreen-universe-rs
 osrf_router_git_branch: main
-osrf_git_repository: https://github.com/berick/OpenSRF
-eg_git_repository: https://github.com/berick/Evergreen
-osrf_git_branch: user/berick/lpxxx-opensrf-over-redis-v2
-eg_git_branch: user/berick/lpxxx-opensrf-over-redis-v2
+osrf_git_repository: git://git.evergreen-ils.org/working/OpenSRF.git
+eg_git_repository: git://git.evergreen-ils.org/working/Evergreen.git
+osrf_git_branch: user/berick/lpxxx-opensrf-over-redis-v3
+eg_git_branch: user/berick/lpxxx-opensrf-over-redis-v3
 
 perform_git_checkout: yes
 # 'no'  == build will fail on local changes
