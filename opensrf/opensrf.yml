@@ -36,6 +36,13 @@
   environment:
     PATH: "{{ansible_env.PATH}}:{{eg_install_path}}/bin"
   shell: cd {{repo_base}}/OpenSRF && make install
+- name: Setup redis-accounts config file
+  become: true
+  copy:
+    remote_src: true
+    src: "{{eg_install_path}}/conf/redis-accounts.example.txt"
+    dest: "{{eg_install_path}}/conf/redis-accounts.txt"
+    force: no
 - name: Set ownership of {{eg_install_path}} to opensrf
   become: true
   file: dest="{{eg_install_path}}" owner=opensrf group=opensrf recurse=yes
