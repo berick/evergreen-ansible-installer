@@ -6,10 +6,10 @@
       - rust-all
 - name: Checkout OpenSRF Rust Repository
   git:
-    repo: "{{osrf_router_git_repository}}"
+    repo: "{{osrf_rust_git_repository}}"
     dest: "{{repo_base}}/evergreen-universe-rs"
-    depth: "{{osrf_router_clone_depth}}"
-    version: "{{osrf_router_git_branch}}"
+    depth: "{{osrf_rust_clone_depth}}"
+    version: "{{osrf_rust_git_branch}}"
     force: "{{force_git_checkout}}"
   become: true
   become_user: opensrf

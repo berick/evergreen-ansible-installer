@@ -10,12 +10,12 @@ os_build_target: ubuntu-jammy
 #eg_git_branch: master
 
 # TEMP use working branch
-osrf_router_git_repository: https://github.com/kcls/evergreen-universe-rs
-osrf_router_git_branch: main
+osrf_rust_git_repository: https://github.com/kcls/evergreen-universe-rs
+osrf_rust_git_branch: main
 osrf_git_repository: git://git.evergreen-ils.org/working/OpenSRF.git
 eg_git_repository: git://git.evergreen-ils.org/working/Evergreen.git
-osrf_git_branch: user/berick/lpxxx-opensrf-over-redis-v3
-eg_git_branch: user/berick/lpxxx-opensrf-over-redis-v3
+osrf_git_branch: user/berick/lp2017941-opensrf-on-redis-v1
+eg_git_branch: user/berick/lp2017941-opensrf-on-redis-v1
 
 perform_git_checkout: yes
 # 'no'  == build will fail on local changes
@@ -26,7 +26,7 @@ force_git_checkout: no
 # Clone depth "0" means full clone. (best for development).
 # Clone depth "1" does a shallow clone, which is smaller and quicker, 
 # but does not give you the full repository history.
-osrf_router_clone_depth: 0
+osrf_rust_clone_depth: 0
 osrf_clone_depth: 0
 eg_clone_depth: 0
 
