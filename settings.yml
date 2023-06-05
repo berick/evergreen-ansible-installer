@@ -10,12 +10,14 @@ os_build_target: ubuntu-jammy
 #eg_git_branch: master
 
 # TEMP use working branch
-osrf_rust_git_repository: https://github.com/kcls/evergreen-universe-rs
-osrf_rust_git_branch: main
 osrf_git_repository: git://git.evergreen-ils.org/working/OpenSRF.git
 eg_git_repository: git://git.evergreen-ils.org/working/Evergreen.git
 osrf_git_branch: user/berick/lp2017941-opensrf-on-redis-v1
 eg_git_branch: user/berick/lp2017941-opensrf-on-redis-v1
+
+websocketd_version: 0.4.1
+websocketd_package: websocketd-{{websocketd_version}}-linux_amd64.zip
+websocketd_url: https://github.com/joewalnes/websocketd/releases/download/v{{websocketd_version}}/{{websocketd_package}}
 
 perform_git_checkout: yes
 # 'no'  == build will fail on local changes
@@ -26,7 +28,6 @@ force_git_checkout: no
 # Clone depth "0" means full clone. (best for development).
 # Clone depth "1" does a shallow clone, which is smaller and quicker, 
 # but does not give you the full repository history.
-osrf_rust_clone_depth: 0
 osrf_clone_depth: 0
 eg_clone_depth: 0
 
@@ -67,6 +68,19 @@ use_nginx: true
 # Modified programmaticlly to use 443 when nginx is enabled.
 # Defaults to OpenSRF's port 7682
 osrf_ws_port:
+
+# Settings applied to the websocketd systemd service file
+websocketd_maxforks: 250
+websocketd_loglevel: error
+websocketd_port: 7682
+# apply origin retrictions to websocketd.  If no value is specified
+# websocketd accepts connections from all origins.
+# Options include:
+#   --origin=domain[:port],origin[:port],...
+#   --sameorigin
+#websocketd_origin: --origin={{web_domain}}
+# Avoid origin restrictions by default
+websocketd_origin:
 
 # Settings applied to the websockets systemd service file
 websockets_max_clients: 250

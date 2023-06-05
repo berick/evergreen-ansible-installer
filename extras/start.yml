@@ -35,5 +35,5 @@
     state: restarted
 - name: Starting Websockets
   systemd:
-    name: opensrf-websockets
+    name: websocketd-osrf
     state: restarted
