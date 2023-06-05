@@ -4,10 +4,6 @@
   environment:
     PATH: "{{ansible_env.PATH}}:{{eg_install_path}}/bin"
   shell: osrf_control --localhost --reset-message-bus
-- name: Starting OpenSRF Router
-  systemd:
-    name: opensrf-router
-    state: restarted
 - name: Starting Services
   become: true
   become_user: opensrf
@@ -35,5 +31,5 @@
     state: restarted
 - name: Starting Websockets
   systemd:
-    name: opensrf-websockets
+    name: websocketd-osrf
     state: restarted

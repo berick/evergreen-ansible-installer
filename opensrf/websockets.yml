@@ -1,0 +1,10 @@
+- name: Download Websocketd
+  shell: cd /tmp/ && wget --quiet {{websocketd_url}}
+- name: Unpack Websocketd
+  unarchive:
+    src: /tmp/{{websocketd_package}}
+    dest: /tmp/
+    remote_src: yes
+- name: Install Websocketd
+  become: true
+  shell: cp /tmp/websocketd /usr/local/bin/
