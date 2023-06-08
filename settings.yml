@@ -8,8 +8,8 @@ eg_git_repository: git://git.evergreen-ils.org/Evergreen.git
 websocketd_version: 0.4.1
 websocketd_package: websocketd-{{websocketd_version}}-linux_amd64.zip
 websocketd_url: https://github.com/joewalnes/websocketd/releases/download/v{{websocketd_version}}/{{websocketd_package}}
-osrf_git_branch: master
-eg_git_branch: master
+osrf_git_branch: main
+eg_git_branch: main
 
 perform_git_checkout: yes
 # 'no'  == build will fail on local changes
@@ -30,7 +30,7 @@ eg_install_path: /openils
 # This should match the Target Server ID of the intended XUL client.
 # Note however, symlinks can be added after the fact by hand to 
 # support different XUL client versions.
-eg_stamp_id: master
+eg_stamp_id: main
 
 eg_admin_user: admin
 eg_admin_pass: demo123
