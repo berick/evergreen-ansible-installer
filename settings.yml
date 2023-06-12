@@ -12,8 +12,8 @@ os_build_target: ubuntu-jammy
 # TEMP use working branch
 osrf_git_repository: git://git.evergreen-ils.org/working/OpenSRF.git
 eg_git_repository: git://git.evergreen-ils.org/working/Evergreen.git
-osrf_git_branch: user/berick/lp2017941-opensrf-on-redis-v1
-eg_git_branch: user/berick/lp2017941-opensrf-on-redis-v1
+osrf_git_branch: user/berick/lp2017941-opensrf-on-redis-v2
+eg_git_branch: user/berick/lp2017941-opensrf-on-redis-v2
 
 websocketd_version: 0.4.1
 websocketd_package: websocketd-{{websocketd_version}}-linux_amd64.zip
