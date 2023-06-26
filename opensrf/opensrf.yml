@@ -40,7 +40,7 @@
   become: true
   copy:
     remote_src: true
-    src: "{{eg_install_path}}/conf/redis-accounts.example.txt"
+    src: "{{eg_install_path}}/conf/redis-accounts.txt.example"
     dest: "{{eg_install_path}}/conf/redis-accounts.txt"
     force: no
 - name: Set ownership of {{eg_install_path}} to opensrf
