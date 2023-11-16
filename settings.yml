@@ -14,9 +14,6 @@ eg_git_repository: git://git.evergreen-ils.org/Evergreen.git
 osrf_git_branch: main
 eg_git_branch: main
 
-# Set to true to use Redis-based OpenSRF instead of Ejabberd/XMPP.
-using_redis: false
-
 websocketd_version: 0.4.1
 websocketd_package: websocketd-{{websocketd_version}}-linux_amd64.zip
 websocketd_url: https://github.com/joewalnes/websocketd/releases/download/v{{websocketd_version}}/{{websocketd_package}}

@@ -13,20 +13,9 @@ git clone --branch working/ubuntu-22.04-redis https://github.com/berick/evergree
 cd evergreen-ansible-installer
 ```
 
-### Install with OpenSRF Flavor of Choice
+### Install Evergreen + OpenSRF-over-Redis
 
-The installer supports OpenSRF over Ejabberd/XMPP or OpenSRF over Redis.
-Ejabberd/XMPP is currently the default.
-
-#### Evergreen with OpenSRF over Ejabberd/XMPP
-
-```sh
-sudo ansible-playbook playbook.yml
-```
-
-#### Evergreen with OpenSRF over Redis
-
-The Redis branch for OpenSRF currently lives in the working repository.
+The code OpenSRF+Redis currently lives in a working branch.
 
 ```sh
 sudo ansible-playbook playbook.yml \
