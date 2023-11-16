@@ -11,17 +11,7 @@ Clone and run the Ansible playbook using an Ubuntu login which has sudo
 sudo apt install -y git ansible
 git clone --branch working/ubuntu-22.04-redis https://github.com/berick/evergreen-ansible-installer.git
 cd evergreen-ansible-installer
-```
-
-### Install Evergreen with OpenSRF+Redis
-
-The OpenSRF+Redis code currently lives in a working branch.
-
-```sh
-sudo ansible-playbook playbook.yml \
-    -e using_redis=true \
-    -e osrf_git_repository=git://git.evergreen-ils.org/working/OpenSRF.git \
-    -e osrf_git_branch=collab/berick/lp2017941-opensrf-on-redis-v3
+sudo ansible-playbook playbook.yml
 ```
 
 ### Open the Browser Client

@@ -4,14 +4,11 @@ deploy_user: opensrf
 repo_base: /home/{{deploy_user}}
 os_build_target: ubuntu-jammy
 
-#osrf_git_repository: git://git.evergreen-ils.org/OpenSRF.git
-#eg_git_repository: git://git.evergreen-ils.org/Evergreen.git
-#osrf_git_branch: master
-#eg_git_branch: master
-
-osrf_git_repository: git://git.evergreen-ils.org/OpenSRF.git
+# TODO go back to main repo
+osrf_git_repository: git://git.evergreen-ils.org/working/OpenSRF.git
 eg_git_repository: git://git.evergreen-ils.org/Evergreen.git
-osrf_git_branch: main
+# TODO go back to main branch
+osrf_git_branch: collab/berick/lp2017941-opensrf-on-redis-v3
 eg_git_branch: main
 
 websocketd_version: 0.4.1
