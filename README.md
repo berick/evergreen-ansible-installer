@@ -13,9 +13,9 @@ git clone --branch working/ubuntu-22.04-redis https://github.com/berick/evergree
 cd evergreen-ansible-installer
 ```
 
-### Install Evergreen + OpenSRF-over-Redis
+### Install Evergreen with OpenSRF+Redis
 
-The code OpenSRF+Redis currently lives in a working branch.
+The OpenSRF+Redis code currently lives in a working branch.
 
 ```sh
 sudo ansible-playbook playbook.yml \
