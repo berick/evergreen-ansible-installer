@@ -6,7 +6,7 @@ Ansible-based installer for OpenSRF and Evergreen.
 
 ## Experimental Versions
 
-- [Ubuntu 22.04 / Evergreen 3.10 / OpenSRF Redis](https://github.com/berick/evergreen-ansible-installer/tree/working/ubuntu-22.04-redis)
+- [Ubuntu 22.04 / Evergreen Main (3.12) / OpenSRF Redis](https://github.com/berick/evergreen-ansible-installer/tree/working/ubuntu-22.04-redis)
 
 ## Supported Versions
 
