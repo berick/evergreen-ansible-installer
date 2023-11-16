@@ -1,6 +1,4 @@
 # Evergreen / OpenSRF Ansible Installer
-:author: Bill Erickson, King County Library System
-:email: berickxx@gmail.com      
 
 ## Quick How-To
 
