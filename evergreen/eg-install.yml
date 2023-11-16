@@ -65,7 +65,6 @@
   become: true
   shell: ldconfig
 - block:
-  when: using_redis | bool
   - name: Redis Ports
     replace:
       path: opensrf_core.xml.example
@@ -97,3 +96,4 @@
       path: opensrf_core.xml.example
       regexp: '\s+ </services>\n\s*\n\s+<!-- Ejabberd -->\n\s*<username>opensrf</username>'
       replace: '\n    </services>\n    <username>gateway</username>\n'
+  when: using_redis | bool
