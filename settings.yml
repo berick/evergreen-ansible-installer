@@ -9,11 +9,13 @@ os_build_target: ubuntu-jammy
 #osrf_git_branch: master
 #eg_git_branch: master
 
-# TEMP use working branch
-osrf_git_repository: git://git.evergreen-ils.org/working/OpenSRF.git
-eg_git_repository: git://git.evergreen-ils.org/working/Evergreen.git
-osrf_git_branch: user/berick/lp2017941-opensrf-on-redis-v2
-eg_git_branch: user/berick/lp2017941-opensrf-on-redis-v2
+osrf_git_repository: git://git.evergreen-ils.org/OpenSRF.git
+eg_git_repository: git://git.evergreen-ils.org/Evergreen.git
+osrf_git_branch: main
+eg_git_branch: main
+
+# Set to true to use Redis-based OpenSRF instead of Ejabberd/XMPP.
+using_redis: false
 
 websocketd_version: 0.4.1
 websocketd_package: websocketd-{{websocketd_version}}-linux_amd64.zip
