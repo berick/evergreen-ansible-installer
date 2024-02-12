@@ -33,3 +33,7 @@
   systemd:
     name: websocketd-osrf
     state: restarted
+- name: Restarting NGINX
+  become: true
+  systemd: name=nginx state=restarted
+  when: use_nginx | bool

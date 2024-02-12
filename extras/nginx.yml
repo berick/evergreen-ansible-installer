@@ -24,12 +24,12 @@
     dest: /etc/apache2/sites-available/eg.conf
     regexp: 'VirtualHost \*:443'
     replace: 'VirtualHost *:7443'
-- name: Restart Apache With New Ports
-  become: true
-  systemd: name=apache2 state=restarted
 - name: Install Nginx Prereqs
   become: true
   apt: name=nginx state=present
+- name: Stop NGINX
+  become: true
+  systemd: name=nginx state=stopped
 - name: Install apache module rpaf
   become: true
   apt: name=libapache2-mod-rpaf state=present
@@ -71,8 +71,3 @@
 - name: Generate NGINX ssl_dhparam key
   become: true
   shell: openssl dhparam -out /etc/apache2/ssl/dhparam.pem 2048
-- name: Restart NGINX With New Config
-  become: true
-  systemd: name=nginx state=restarted
-
-
