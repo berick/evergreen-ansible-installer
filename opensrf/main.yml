@@ -1,8 +1,8 @@
 - name: Setup OpenSRF
-  include: setup.yml
+  import_tasks: setup.yml
 - name: Install OpenSRF
-  include: opensrf.yml
+  import_tasks: opensrf.yml
 - name: Configure Redis
-  include: redis.yml
+  import_tasks: redis.yml
 - name: Install OpenSRF Websockets
-  include: websockets.yml
+  import_tasks: websockets.yml
