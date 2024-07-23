@@ -2,13 +2,13 @@
 hosts: '127.0.0.1'
 deploy_user: opensrf
 repo_base: /home/{{deploy_user}}
-os_build_target: ubuntu-jammy
+os_build_target: ubuntu-noble
 
 # TODO go back to main repo
 osrf_git_repository: git://git.evergreen-ils.org/working/OpenSRF.git
 eg_git_repository: git://git.evergreen-ils.org/Evergreen.git
 # TODO go back to main branch
-osrf_git_branch: collab/berick/lp2017941-opensrf-on-redis-v3
+osrf_git_branch: collab/berick/lp2017941-opensrf-on-redis-v4
 eg_git_branch: main
 
 websocketd_version: 0.4.1
@@ -99,7 +99,7 @@ database_user: evergreen
 database_password: evergreen
 database_database: evergreen
 
-pg_install_target: postgres-server-ubuntu-jammy-14
+pg_install_target: postgres-server-ubuntu-noble-14
 
 # Create the Evergreen schema?
 create_schema: true
