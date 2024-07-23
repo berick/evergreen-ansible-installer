@@ -16,7 +16,7 @@ sudo ansible-playbook playbook.yml
 
 ### Open the Browser Client
 
-In Chrome/FF navigate to https://<HOSTNAME>/eg/staff/ and click 
+In Chrome/FF navigate to https://YOUR-HOSTNAME/eg2/staff/splash and click 
 through the SSL warning to access the staff client.
 
 ## Settings
