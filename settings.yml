@@ -8,7 +8,7 @@ os_build_target: ubuntu-noble
 osrf_git_repository: git://git.evergreen-ils.org/working/OpenSRF.git
 eg_git_repository: git://git.evergreen-ils.org/Evergreen.git
 # TODO go back to main branch
-osrf_git_branch: collab/berick/lp2017941-opensrf-on-redis-v4
+osrf_git_branch: collab/berick/lp2017941-opensrf-on-redis-v5
 eg_git_branch: main
 
 websocketd_version: 0.4.1
