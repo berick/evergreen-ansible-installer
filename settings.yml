@@ -48,7 +48,7 @@ web_domain: localhost
 opensrf_memcached_server: ["127.0.0.1:11211"]
 
 dojo_version: 1.3.3
-dojo_url: http://download.dojotoolkit.org/release-{{dojo_version}}/dojo-release-{{dojo_version}}.tar.gz
+dojo_url: https://download.dojotoolkit.org/release-{{dojo_version}}/dojo-release-{{dojo_version}}.tar.gz
 
 # Install and configure rsyslog for logging
 use_rsyslog: true
