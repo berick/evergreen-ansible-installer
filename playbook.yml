@@ -8,8 +8,8 @@
     - settings.yml
   tasks:
   - name: Process OpenSRF Tasks
-    include: opensrf/main.yml
+    include_tasks: opensrf/main.yml
   - name: Process Evergreen Tasks
-    include: evergreen/main.yml
+    include_tasks: evergreen/main.yml
   - name: Process Optional Items
-    include: extras/main.yml
+    include_tasks: extras/main.yml

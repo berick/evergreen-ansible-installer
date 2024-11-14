@@ -1,11 +1,11 @@
 - name: Setup Rsyslog
-  include: rsyslog.yml
+  include_tasks: rsyslog.yml
   when: use_rsyslog | bool
 - name: Install Nginx
-  include: nginx.yml
+  include_tasks: nginx.yml
   when: use_nginx | bool
 - name: Install Service Files
-  include: services.yml
+  include_tasks: services.yml
 - name: Starting Services
-  include: start.yml
+  include_tasks: start.yml
   when: start_services | bool

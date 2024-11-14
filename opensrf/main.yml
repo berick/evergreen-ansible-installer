@@ -1,6 +1,6 @@
 - name: Setup OpenSRF
-  include: setup.yml
+  include_tasks: setup.yml
 - name: Install OpenSRF
-  include: opensrf.yml
+  include_tasks: opensrf.yml
 - name: Install OpenSRF Websockets
-  include: websockets.yml
+  include_tasks: websockets.yml

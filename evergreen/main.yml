@@ -2,19 +2,19 @@
   include_vars: translations.yml
   when: translations is defined
 - name: Build Evergreen
-  include: eg-build.yml
+  include_tasks: eg-build.yml
 - name: Build Evergreen Web
-  include: eg-web.yml
+  include_tasks: eg-web.yml
 - name: Build Evergreen translator
-  include: eg-translator.yml
+  include_tasks: eg-translator.yml
   when: locale is defined
 - name: Install Evergreen
-  include: eg-install.yml
+  include_tasks: eg-install.yml
 - name: Setup Apache
-  include: apache.yml
+  include_tasks: apache.yml
 - name: Install Database
-  include: database.yml
+  include_tasks: database.yml
   when: install_database | bool
 - name: Setup translations
-  include: setup-translations.yml
+  include_tasks: setup-translations.yml
   when: locale is defined
