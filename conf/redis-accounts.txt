@@ -1,0 +1,37 @@
+SET COMMENT "opensrf clients can perform all opensrf-level actions"
+SET COMMENT "opensrf accounts send requets to opensrf:router:* queues"
+SET COMMENT "opensrf accounts send replies to opensrf:client:* queues"
+SET COMMENT "opensrf accounts lpop requests from their opensrf:servivce: queue."
+SET COMMENT "TODO: separate Listener vs Drone accounts to prevent Drones / standalone clients from accessing opensrf:service:*"
+
+ACL SETUSER opensrf reset
+ACL SETUSER opensrf on >password
+ACL SETUSER opensrf -@all +keys +ttl +expire +llen +lpop +blpop +rpush +del ~opensrf:router:* ~opensrf:service:* ~opensrf:client:*
+
+SET COMMENT "routers lpop requests from their own opensrf:router:* queues"
+SET COMMENT "routers send requests to opensrf:service:* queues"
+SET COMMENT "routers send replies to opensrf:client:* queues"
+
+ACL SETUSER router reset
+ACL SETUSER router on >password
+ACL SETUSER router -@all +lpop +blpop +rpush +del ~opensrf:router:* ~opensrf:service:* ~opensrf:client:*
+
+SET COMMENT "gateway accounts send request to opensrf:router:* queues"
+SET COMMENT "gateway accounts send subsequent, stateful requests to opensrf:client:* queues"
+
+ACL SETUSER gateway reset
+ACL SETUSER gateway on >password
+ACL SETUSER gateway -@all +lpop +blpop +rpush +del ~opensrf:router:* ~opensrf:client:*
+
+ACL SETUSER cache reset
+ACL SETUSER cache on >password
+ACL SETUSER cache -@all +set +setex +get +del ~opensrf:cache:*
+
+SET COMMENT "default can do anything"
+SET COMMENT "set default password last so our logged-in account does not break mid-script"
+
+ACL SETUSER default resetpass
+ACL SETUSER default on >password
+
+SET COMMENT "Disable Redis persistence"
+CONFIG SET save ""

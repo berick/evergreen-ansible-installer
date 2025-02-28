@@ -1,6 +1,5 @@
 - name: Setup Rsyslog
   include_tasks: rsyslog.yml
-  when: use_rsyslog | bool
 - name: Install Nginx
   include_tasks: nginx.yml
   when: use_nginx | bool
