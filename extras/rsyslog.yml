@@ -1,11 +1,9 @@
 - name: Configure Rsyslog
   become: true
-  when: use_rsyslog | bool
   copy:
     remote_src: true
     src: "{{repo_base}}/Evergreen/Open-ILS/examples/evergreen-rsyslog.conf"
     dest: /etc/rsyslog.d/evergreen.conf
 - name: Restart Rsyslog
   become: true
-  when: use_rsyslog | bool
   systemd: name=rsyslog state=restarted

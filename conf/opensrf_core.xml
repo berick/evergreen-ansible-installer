@@ -39,7 +39,7 @@
     </routers>
     <domain>private.localhost</domain>
     <username>opensrf</username>
-    <passwd>passsword</passwd>
+    <passwd>password</passwd>
     <port>6379</port>
     <router_name>router</router_name>
     <!--
