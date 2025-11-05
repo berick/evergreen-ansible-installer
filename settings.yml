@@ -60,7 +60,7 @@ use_nginx: true
 # Defaults to OpenSRF's port 7682
 osrf_ws_port:
 
-# Settings applied to the websocketd SysV init script
+# Settings applied to the websocketd systemd service file
 websocketd_maxforks: 250
 websocketd_loglevel: error
 websocketd_port: 7682
@@ -73,10 +73,10 @@ websocketd_port: 7682
 # Avoid origin restrictions by default
 websocketd_origin:
 
-# Settings applied to the websockets SysV init script
+# Settings applied to the websockets systemd service file
 websockets_max_clients: 250
 
-# Install SysV service scripts and use them to stop/start services.
+# Install systemd service files and use them to stop/start services.
 # Most disabled by default since EG documentation generally refers to
 # the osrf_control script instead.
 use_service_opensrf: false

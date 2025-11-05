@@ -1,43 +1,41 @@
-- name: Install OpenSRF init script
+- name: Install OpenSRF Service File
   become: true
   template: 
-    src: extras/service-files/opensrf.init.j2
-    dest: /etc/init.d/opensrf 
+    src: extras/service-files/opensrf.service.j2
+    dest: /lib/systemd/system/opensrf.service 
     owner: root
     group: root
-    mode: '0755'
+    mode: 0644
   when: use_service_opensrf | bool
-- name: Install OpenSRF Websocketd init script
+- name: Install OpenSRF Websocketd Service File
   become: true
   template:
-    src: extras/service-files/websocketd-osrf.init.j2
-    dest: /etc/init.d/websocketd-osrf
+    src: extras/service-files/websocketd-osrf.service.j2
+    dest: /lib/systemd/system/websocketd-osrf.service
     owner: root
     group: root
-    mode: '0755'
-- name: Install Evergreen Reporter init script
+    mode: 0644
+- name: Install Evergreen Reporter Service File
   become: true
   template: 
-    src: extras/service-files/evergreen-reporter.init.j2
-    dest: /etc/init.d/evergreen-reporter 
+    src: extras/service-files/evergreen-reporter.service.j2
+    dest: /lib/systemd/system/evergreen-reporter.service 
     owner: root
     group: root
-    mode: '0755'
+    mode: 0644
   when: use_service_reporter | bool
-- name: Enable OpenSRF service at boot
-  become: true
-  command: update-rc.d opensrf defaults
-  args:
-    creates: /etc/rc2.d/S20opensrf
+- name: Reload Systemd Configs
+  systemd:
+    daemon_reload: true
+- name: Enable OpenSRF Service
+  systemd:
+    name: opensrf
+    enabled: true
   when: use_service_opensrf | bool
-- name: Enable OpenSRF Websocketd service at boot
+- name: Enable OpenSRF Websocketd Service
   become: true
-  command: update-rc.d websocketd-osrf defaults
-  args:
-    creates: /etc/rc2.d/S20websocketd-osrf
-- name: Enable Evergreen Reporter service at boot
+  shell: systemctl enable websocketd-osrf
+- name: Enable Evergreen Reporter Service
   become: true
-  command: update-rc.d evergreen-reporter defaults
-  args:
-    creates: /etc/rc2.d/S20evergreen-reporter
+  shell: systemctl enable evergreen-reporter
   when: use_service_reporter | bool

@@ -6,4 +6,4 @@
     dest: /etc/rsyslog.d/evergreen.conf
 - name: Restart Rsyslog
   become: true
-  service: name=rsyslog state=restarted
+  systemd: name=rsyslog state=restarted

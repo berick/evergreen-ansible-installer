@@ -1,0 +1,13 @@
+Description=Websocketd OpenSRF Gateway
+
+[Service]
+Type=simple
+User=opensrf
+Group=opensrf
+Environment=PATH=/openils/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+Environment=LD_LIBRARY_PATH=/openils/lib:/usr/local/lib:/usr/local/lib/dbd:$LD_LIBRARY_PATH
+ExecStart=/usr/local/bin/websocketd --loglevel {{websocketd_loglevel}} --maxforks {{websocketd_maxforks}} --port {{websocketd_port}} {{websocketd_origin}} /openils/bin/osrf-websocket-stdio
+
+#[Install]
+#WantedBy=multi-user.target
+

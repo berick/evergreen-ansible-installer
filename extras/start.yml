@@ -11,9 +11,9 @@
     PATH: "{{ansible_env.PATH}}:{{eg_install_path}}/bin"
   shell: osrf_control --localhost --restart-all
   when: not use_service_opensrf | bool
-- name: Starting Services (init)
-  service:
-    name: opensrf
+- name: Starting Services (systemd)
+  systemd:
+    name: opensrf.service
     state: restarted
   when: use_service_opensrf | bool
 - name: Giving Services Time To Start...
@@ -26,15 +26,14 @@
   shell: autogen.sh
 - name: Restarting Apache
   become: true
-  service:
+  systemd:
     name: apache2 
     state: restarted
 - name: Starting Websockets
-  become: true
-  service:
+  systemd:
     name: websocketd-osrf
     state: restarted
 - name: Restarting NGINX
   become: true
-  service: name=nginx state=restarted
+  systemd: name=nginx state=restarted
   when: use_nginx | bool
