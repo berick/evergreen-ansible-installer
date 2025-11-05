@@ -1,0 +1,66 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          websocketd-osrf
+# Required-Start:    $remote_fs $syslog $network
+# Required-Stop:     $remote_fs $syslog $network
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Websocket gateway for OpenSRF
+# Description:       Runs websocketd to bridge browser websocket traffic.
+### END INIT INFO
+
+### BEGIN INIT VARS
+NAME=websocketd-osrf
+DESC="Websocketd OpenSRF gateway"
+RUNUSER=opensrf
+PIDFILE=/var/run/$NAME.pid
+SCRIPTNAME=/etc/init.d/$NAME
+ENV_PATH={{ eg_install_path }}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ENV_LD={{ eg_install_path }}/lib:/usr/local/lib:/usr/local/lib/dbd:${LD_LIBRARY_PATH:-}
+DAEMON=/usr/bin/env
+DAEMON_ARGS="PATH=$ENV_PATH LD_LIBRARY_PATH=$ENV_LD /usr/local/bin/websocketd --loglevel {{ websocketd_loglevel }} --maxforks {{ websocketd_maxforks }} --port {{ websocketd_port }}{% if websocketd_origin %} {{ websocketd_origin }}{% endif %} {{ eg_install_path }}/bin/osrf-websocket-stdio"
+### END INIT VARS
+
+. /lib/lsb/init-functions
+
+[ -x /usr/local/bin/websocketd ] || exit 0
+
+start_service() {
+    start-stop-daemon --start --quiet --background --pidfile "$PIDFILE" --make-pidfile \
+        --chuid "$RUNUSER":"$RUNUSER" --exec "$DAEMON" -- $DAEMON_ARGS
+}
+
+stop_service() {
+    start-stop-daemon --stop --quiet --pidfile "$PIDFILE" --retry=TERM/30/KILL/5
+    RET=$?
+    [ $RET -eq 0 ] && rm -f "$PIDFILE"
+    return $RET
+}
+
+case "$1" in
+  start)
+    log_daemon_msg "Starting $DESC" "$NAME"
+    start_service
+    log_end_msg $?
+    ;;
+  stop)
+    log_daemon_msg "Stopping $DESC" "$NAME"
+    stop_service
+    log_end_msg $?
+    ;;
+  restart|force-reload)
+    log_daemon_msg "Restarting $DESC" "$NAME"
+    stop_service || true
+    start_service
+    log_end_msg $?
+    ;;
+  status)
+    status_of_proc -p "$PIDFILE" /usr/local/bin/websocketd "$NAME"
+    ;;
+  *)
+    echo "Usage: $SCRIPTNAME {start|stop|restart|force-reload|status}"
+    exit 2
+    ;;
+esac
+
+exit 0

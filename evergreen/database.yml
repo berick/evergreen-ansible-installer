@@ -12,7 +12,7 @@
     Open-ILS/src/extras/Makefile.install {{pg_install_target}}
 - name: Start Postgres
   become: true
-  systemd: name=postgresql state=started
+  service: name=postgresql state=started
 - name: Create DB User
   become: true
   become_user: postgres
