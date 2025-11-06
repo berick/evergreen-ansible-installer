@@ -31,6 +31,9 @@
     src: "{{eg_install_path}}/conf/opensrf_core.xml.example"
     dest: "{{eg_install_path}}/conf/opensrf_core.xml"
     force: no
+- name: Install Rsync for Dojo Fetch
+  become: true
+  apt: name=rsync state=present
 - name: Get URL for dojo
   get_url: url={{dojo_url}} dest=/tmp/dojo-release-{{dojo_version}}.tar.gz
 - name: Unarchive dojo tarball
