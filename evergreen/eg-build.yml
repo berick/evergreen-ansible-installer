@@ -13,7 +13,7 @@
   become: true
   shell: >
     cd {{repo_base}}/Evergreen 
-    && PERL_MM_USE_DEFAULT=1 make -f 
+    && PERL_MM_USE_DEFAULT=1 NO_CPAN_TEST=1 make -f
     Open-ILS/src/extras/Makefile.install {{os_build_target}}
 - name: Set ownership of {{repo_base}} to {{deploy_user}}
   become: true

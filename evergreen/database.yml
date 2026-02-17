@@ -8,7 +8,7 @@
   become: true
   shell: >
     cd {{repo_base}}/Evergreen 
-    && PERL_MM_USE_DEFAULT=1 make -f 
+    && PERL_MM_USE_DEFAULT=1 NO_CPAN_TEST=1 make -f
     Open-ILS/src/extras/Makefile.install {{pg_install_target}}
 - name: Start Postgres
   become: true
