@@ -101,7 +101,7 @@ create_schema: true
 
 # set to empty value to avoid loading sample data
 # Only used when create_schema=true
-load_sample_data: --load-all-sample
+load_sample_data: false
 
 # Install the PGTAP extension for database unit tests?
 # Requires create_schema=true
